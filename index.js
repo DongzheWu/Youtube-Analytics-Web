@@ -261,6 +261,7 @@ app.get('/track/new', async(req, res) => {
 function intervalFunc() {
     const Track = mongoose.model('tracks');
     const Record = mongoose.model('records');
+    console.log("11111111111");
     Track.find(function(err, res){
         res.forEach((item) => {
             item.videoIds.forEach((videoId) => {
@@ -335,7 +336,7 @@ function intervalFunc() {
     });
 }
   
-setInterval(intervalFunc, 1000 * 60 * 10);
+setInterval(intervalFunc, 1000 * 60);
 
 
 
