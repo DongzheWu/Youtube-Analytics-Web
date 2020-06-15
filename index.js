@@ -335,7 +335,7 @@ function intervalFunc() {
     });
 }
   
-setInterval(intervalFunc, 1000 * 60 * 10);
+// setInterval(intervalFunc, 1000 * 60 * 10);
 
 
 
