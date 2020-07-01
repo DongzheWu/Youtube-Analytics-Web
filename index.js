@@ -10,12 +10,15 @@ const googleTrends = require('google-trends-api');
 const {google} = require('googleapis');
 const { WSAEDESTADDRREQ } = require('constants');
 //--------------------------------------------
-
+const cors = require('cors');
+const { response } = require('express');
 
 require('./models/User');
-require('./models/TrackList');
 require('./models/Record');
+require('./models/Video');
 require('./services/passport');
+
+
 
 
 mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -38,7 +41,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-// app.use(cors());
+app.use(cors());
 
 // var whitelist = ['http://localhost:3001', 'https://dongzhe-wu.netlify.app', '10.0.0.233']
 // var corsOptions = {
@@ -53,14 +56,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // // Then pass them to cors:
 // app.use(cors(corsOptions));
-
+var count = 1;
+function getAPIKey(){
+    count++;
+    count = count % 6;
+    return keys.googleAPIKeys[count];
+}
 
 async function getInfo(items){
     var data = [];
 
     for(const item of items){
         await google.youtube('v3').videos.list({
-            key: keys.googleAPIKey,
+            key: getAPIKey(),
             part: 'snippet,contentDetails,statistics,status',
             id: item.id.videoId,
         }).then((rep) => {
@@ -78,70 +86,91 @@ async function getInfo(items){
 
 }
 
-app.post("/search", function(req, res){
-    // var term = req.body.keyword;
-    console.log(".............................................")
-    console.log(req);
-    console.log(req.body.term);
+// app.post("/search", function(req, res){
+//     // var term = req.body.keyword;
+//     console.log(".............................................")
+//     console.log(req.body.term);
 
-    google.youtube('v3').search.list({
-        key: keys.googleAPIKey,
-        part: 'snippet',
-        q: req.body.term,
-        type: 'video',
-        maxResults: 3,
-      }).then((response) => {
-          var d = response;
-        //   console.log(d.data.items);
-          getInfo(d.data.items).then((rp) => {
-              console.log(rp);
-              console.log(typeof(rp));
-            //   res.write({'message': rp});
-              res.json({data: rp});
-              res.send();
-          });
-
+//     google.youtube('v3').search.list({
+//         key: keys.googleAPIKey,
+//         part: 'snippet',
+//         q: req.body.term,
+//         type: 'video',
+//         maxResults: 3,
+//       }).then((response) => {
+//           var d = response;
+//         //   console.log(d.data.items);
+//           getInfo(d.data.items).then((rp) => {
+//               console.log(rp);
+//               console.log(typeof(rp));
+//             //   res.write({'message': rp});
+//               res.json({data: rp});
+//               res.send();
+//           });
 
 
-      }).catch((err) => {
-          console.log(err);
-      });
-});
+
+//       }).catch((err) => {
+//           console.log(err);
+//       });
+// });
 
 
 
     
-app.post("/", function(req, res, next){
-    var item = req.body.item1;
+app.post("/trend", function(req, res, next){
+    var items = req.body.items;
+    var length = req.body.length;
+    var country = req.body.country;
+
+    var dt = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+    if(length == "7 days"){
+        dt = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      }else if(length == "full"){
+        dt = new Date('2004-01-01');
+      }else if(length == "5 years"){
+        dt = new Date(new Date().setFullYear(new Date().getFullYear() - 5));;
+      }
+
+    var ct = "";
+    if(country == "USA"){
+        ct = "US";
+    }else if(country == "China"){
+        ct = "CN";
+    }else if(country == "Vietnam"){
+        ct = "VN";
+    }
     googleTrends.interestOverTime({
-        keyword: item,
-        startTime: new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
+        keyword: items,
+        startTime: dt,
         granularTimeResolution: true,
+        geo: ct
     }, function(err, results, data){
         if(err){
             console.error('there was an error!', err);
         }else{
+          
             var data = JSON.parse(results).default;
-            
-            var date = [];
-            var value = [];
+        
+            // var date = [];
+            // var value = [];
+            var values = new Array(items.length);
+            var date = []
+            for(var k = 0; k < items.length; k++){
+                values[k] = [];
+            }
        
             data.timelineData.forEach(element => {
+         
                 date.push(element.formattedTime);
-                value.push(element.value[0]);
+                for(var i = 0; i < element.value.length; i++){
+                    values[i].push(element.value[i]);
+                }
             });
-            console.log(date);
-            console.log(value);
-            // const trend = new Trend({
-            //     keyword: item,
-            //     timeType: "5 years",
-            //     date: date,
-            //     value: value,
-            // });
-            // trend.save();
+       
+   
 
-            res.json({date: date, value: value});
-
+            res.json({date: date, values: values, items: items});
 
 
             res.send()
@@ -169,173 +198,284 @@ app.post("/", function(req, res, next){
 
 
 //----------------------------------------------------------
-app.get('/track', async (req, res) => {
-    console.log(req.user);
+app.delete('/track/:id', async(req, res) => {
+    console.log("call delete");
+    const id = req.params.id;
+    console.log(id);
     const User = mongoose.model('users');
+    const Video = mongoose.model('videos');
+    const curUser = await User.findOne({ googleId: req.user.googleId }, {
+        'tracks': {$elemMatch: {'_id': id}}
+    });
+    const keyword = curUser.tracks[0].keyword;
+    const track = await User.updateOne({ googleId: req.user.googleId }, {
+        $pull: {
+            'tracks': {
+                '_id': id
+            }
+        }
+    });
+
+    await Video.deleteMany({googleId: req.user.googleId, keyword: keyword});
+    res.send();
+
+});
+app.get('/track', async (req, res) => {
  
+    const User = mongoose.model('users');
 
-    // await User.updateOne(
-    //     { googleId: req.user.googleId },
-    //     { $push: {trackList: "粽子", dateList: Date.now()} }
-    // )
+    const curUser = await User.findOne(  { googleId: req.user.googleId});
 
-    // console.log(chagedUser);
-    // const track = await new Track({ 
-    //     googleId: profile.id 
-    // })
-    // track.save();
+    res.send(curUser.tracks);
+
 
 });
 
 
 async function saveInfo(items, googleId, keyword){
-    var videoIds = [];
-    var videoTitles = [];
-    var videoPubTimes = []; 
 
-    items.forEach(item => {
-        videoIds.push(item.id.videoId);
-        videoTitles.push(item.snippet.title);
-        videoPubTimes.push(item.snippet.publishTime);
-    });
-
-    const Track = mongoose.model('tracks');
-    console.log(googleId);
-    await new Track({
-        googleId: googleId,
-        keyword: keyword,
-        videoIds: videoIds,
-        videoTitles: videoTitles,
-        videoPubTimes: videoPubTimes
-    }).save();
-
-}
-
-app.get('/track/new', async(req, res) => {
-    var keyword = "酸奶";
 
     const User = mongoose.model('users');
+    await User.updateOne({ googleId: googleId }, {
+        $push: {
+            'tracks': {
+                'keyword': keyword,
+                'addDate': Date.now(),
+            }
+        }
+    }).then(async() => {
+        for(const item of items){
+  
 
-    if(!req.user){
-        console.log("nonono");
-    }else{
-        await User.find(  { googleId: req.user.googleId,  trackList: { $in: [ keyword ] } }, async(err, result) => {
-            if (err) {
+            const Video = mongoose.model('videos');
+            const video = await new Video({
+                googleId: googleId,
+                keyword: keyword,
+                videoId: item.id.videoId,
+                videoTitle: item.snippet.title,
+                videoPubTime: item.snippet.publishTime,
+            }).save();
+
+
+        }
+    } );
+
+}
+
+
+
+app.post('/track/new', async (req, res) =>{
+
+    const keyword = req.body.keyword;
+
+    const User = mongoose.model('users');
+    const exitUser = await User.findOne({
+        'tracks':{
+            $elemMatch:{
+                'keyword': keyword
+            }
+        }
+    });
+    if(!exitUser){
+        await google.youtube('v3').search.list({
+            key: getAPIKey(),
+            part: 'snippet',
+            q: keyword,
+            type: 'video',
+            maxResults: 20,       
+        }).then(async(response) => {
+            await saveInfo(response.data.items, req.user.googleId, keyword).then(async() => {
+                const curUser = await User.findOne(  { googleId: req.user.googleId});
+                res.send(curUser.tracks[curUser.tracks.length - 1]);
+    
+            }).catch((err) => {
                 console.log(err);
-              } else {
-                  console.log("add one item");
-                if(result.length == 0){
-                    await User.updateOne(
-                        { googleId: req.user.googleId },
-                        { $push: {trackList: keyword, dateList: Date.now()} }
-                    )
-
-                    // const Track = mongoose.model('tracks');
-                    google.youtube('v3').search.list({
-                        key: keys.googleAPIKey,
-                        part: 'snippet',
-                        q: keyword,
-                        type: 'video',
-                        maxResults: 5,
-                        }).then((response) => {
-                            saveInfo(response.data.items, req.user.googleId, keyword).catch((e) => {
-                                console.log(e);
-                            });
-
-
-                        }).catch((err) => {
-                            console.log(err);
-                        });
-
-                }
-     
-              }
-        } );
-        
+            });
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 
-})
 
 
 
-function intervalFunc() {
-    const Track = mongoose.model('tracks');
-    const Record = mongoose.model('records');
-    Track.find(function(err, res){
-        res.forEach((item) => {
-            item.videoIds.forEach((videoId) => {
-                Record.find({
-                    googleId: item.googleId,
-                    keyword: item.keyword,
-                    videoId: videoId
-                }, async(e, records) => {
-                    if(records.length == 0){
-                        console.log("new record");
-                        await google.youtube('v3').videos.list({
-                            key: keys.googleAPIKey,
-                            part: 'snippet,statistics',
-                            id: videoId,
-                        }).then((rep) => {
-                            new Record({
-                                googleId: item.googleId,
-                                keyword: item.keyword,
-                                videoId: videoId,
-                                title: rep.data.items[0].snippet.title,
-                                tags: rep.data.items[0].snippet.tags,
-                                values: [rep.data.items[0].statistics.viewCount],
-                                redates: [Date.now()]
-                            }).save();
+    // await User.find({googleId: req.user.googleId, trackList: {$in: [ keyword ]}}, async(err, result) => {
+    //     if(err){
+    //         console.log(err);
+    //     }else{
+    //         console.log("add one item");
+    //         if(result.length == 0){
+    //             await User.updateOne(
+    //                 { googleId: req.user.googleId },
+    //                 { $push: {trackList: keyword, dateList: Date.now()} }
+    //             ).then(async(curUser) => {
+    //                 const Track = mongoose.model('tracks');
+                    // await google.youtube('v3').search.list({
+                    //     key: keys.googleAPIKey,
+                    //     part: 'snippet',
+                    //     q: keyword,
+                    //     type: 'video',
+                    //     maxResults: 5,
+                    //     }).then(async(response) => {
+                    //         await saveInfo(response.data.items, req.user.googleId, keyword).then(async() => {
+                    //             // await User.find(  { googleId: req.user.googleId},'trackList', (req, trackList) => {
+                    //             //     res.json(trackList);
+                            
+                    //             //     res.send();
+                    //             // });
+                    //             console.log("send");
+                    //             res.json(keyword);
+                    //             res.send();
+                            
+
+                    //         }).catch((e) => {
+                    //             console.log(e);
+                    //         });
+                    //     });
+                // });
+    //         }else{
+    //             await User.find(  { googleId: req.user.googleId},'trackList', (req, trackList) => {
+    //                 res.json(trackList);
             
-                        }).catch((err) => {
-                            console.log(err);
-                        });
-                    }else{
-                        console.log("old record");
-                        await google.youtube('v3').videos.list({
-                            key: keys.googleAPIKey,
-                            part: 'statistics',
-                            id: videoId,
-                        }).then((rep) => {
-                            console.log(Date.now());
-                            console.log(rep.data.items[0].statistics.viewCount);
-                            console.log(videoId);
-                            Record.updateOne(
-                                {
-                                    googleId: item.googleId,
-                                    keyword: item.keyword,
-                                    videoId: videoId,
-                                },
-                                {
-                                    $push: {
-                                        values: rep.data.items[0].statistics.viewCount,
-                                        redates: Date.now()
-                                    },
-                                },
+    //                 res.send();
+    //             });
+    //         }
+    //     }
+    // })
+});
+
+
+
+function intervalFunc(){
+    const Video = mongoose.model('videos');
+    console.log("run");
+    Video.find(function(err, videos){
+        videos.forEach(async(video) => {
+
+            if(video.recentViewCount){
+                await google.youtube('v3').videos.list({
+                    key: getAPIKey(),
+                    part: 'statistics',
+                    id: video.videoId,
+                }).then(async(rep) => {
+                    var dt = new Date();
+                    await Video.updateOne({
+                        googleId: video.googleId,
+                        keyword: video.keyword,
+                        videoId: video.videoId
+                   
+                    },
+                    {
+                        $push:{
+                            values: rep.data.items[0].statistics.viewCount - video.recentViewCount,
+                            redates: dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate()
+                        },
+                        recentViewCount: rep.data.items[0].statistics.viewCount
     
-                                (err) =>{
-                                    if(err){
-                                        console.log(err);
-                                    }
-                                }
-    
-                            );
-    
-                        }).catch((err) => {
-                            console.log(err);
-                        });
-    
-    
-    
-                    }
+                    });
                 });
-            });
-            console.log(item.videoIds);
-    
+            }else{
+                await google.youtube('v3').videos.list({
+                    key: getAPIKey(),
+                    part: 'statistics',
+                    id: video.videoId,
+                }).then(async(rep) => {
+                   video.recentViewCount =  rep.data.items[0].statistics.viewCount;
+                   await video.save();
+                });
+            }
+
+
+
         });
-    });
+    }); 
 }
+
+setInterval(intervalFunc, 1000 * 60 * 60 * 24);
+// function intervalFunc() {
+//     const User = mongoose.model('users');
+//     const Record = mongoose.model('records');
+//     User.find(function(err, res){
+//         console.log(res);
+
+//         res.forEach((user) => {
+//             user.tracks.forEach((item) => {
+//                 console.log(res.tracks);
+//                 item.videoIds.forEach((videoId) => {
+//                     Record.find({
+//                         googleId: item.googleId,
+//                         keyword: item.keyword,
+//                         videoId: videoId
+//                     }, async(e, records) => {
+//                         if(records.length == 0){
+//                             console.log("new record");
+//                             await google.youtube('v3').videos.list({
+//                                 key: keys.googleAPIKey,
+//                                 part: 'snippet,statistics',
+//                                 id: videoId,
+//                             }).then((rep) => {
+//                                 new Record({
+//                                     googleId: user.googleId,
+//                                     keyword: item.keyword,
+//                                     videoId: videoId,
+//                                     title: rep.data.items[0].snippet.title,
+//                                     tags: rep.data.items[0].snippet.tags,
+//                                     values: [rep.data.items[0].statistics.viewCount],
+//                                     redates: [Date.now()]
+//                                 }).save();
+                
+//                             }).catch((err) => {
+//                                 console.log(err);
+//                             });
+//                         }else{
+//                             console.log("old record");
+//                             await google.youtube('v3').videos.list({
+//                                 key: keys.googleAPIKey,
+//                                 part: 'statistics',
+//                                 id: videoId,
+//                             }).then((rep) => {
+//                                 console.log(Date.now());
+//                                 console.log(rep.data.items[0].statistics.viewCount);
+//                                 console.log(videoId);
+//                                 Record.updateOne(
+//                                     {
+//                                         googleId: item.googleId,
+//                                         keyword: item.keyword,
+//                                         videoId: videoId,
+//                                     },
+//                                     {
+//                                         $push: {
+//                                             values: rep.data.items[0].statistics.viewCount,
+//                                             redates: Date.now()
+//                                         },
+//                                     },
+        
+//                                     (err) =>{
+//                                         if(err){
+//                                             console.log(err);
+//                                         }
+//                                     }
+        
+//                                 );
+        
+//                             }).catch((err) => {
+//                                 console.log(err);
+//                             });
+        
+        
+        
+//                         }
+//                     });
+//                 });
+//                 console.log(item.videoIds);
+        
+//             });
+//         });
+
+//     });
+// }
   
-// setInterval(intervalFunc, 1000 * 60 * 10);
+
 
 
 
@@ -343,7 +483,9 @@ function intervalFunc() {
 
 
 require('./routes/authRoutes')(app);
-
+require('./routes/searchRoute')(app);
+require('./routes/recordRoutes')(app);
+require('./routes/topRoute')(app);
 // app.get('/', (req, res) => {
 //     res.send({ hi: 'there'});
 //     const User = mongoose.model('users');
@@ -356,7 +498,14 @@ require('./routes/authRoutes')(app);
 // });
 
 
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
 
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path. resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 
 const PORT = process.env.PORT || 5000;

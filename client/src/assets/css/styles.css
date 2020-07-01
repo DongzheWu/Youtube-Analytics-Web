@@ -1,0 +1,241 @@
+/* ------------------------------------------------------------------
+ * Name         : Beid - HTML Template
+ * File         : styles.css
+ * Author       : ScanThemes
+ * Author URI   : scanthemes@gmail.com
+ *������ȫ��õ�Bootstrapģ�壺http://www.bootstrapmb.com
+ * All Rights Reserved.
+ * --------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+
+  [Table of contents]
+    - Global
+    - Header
+    - Panels
+    - Widgets
+      -- Calendar
+      -- Chat
+      -- News
+      -- Tabs
+    - Sidebar
+    - Pages
+      -- Profile
+      -- Login
+      -- Email & Chat
+      -- Shop
+      -- Product-Details
+    - Footer
+    - User CSS
+
+------------------------------------------------------------------------ */
+/* ---------------------------------------------------------------------
+
+  *** All that is included here refers to additional user-defined styles.
+      You can freely change them or add new ones.
+
+/*---------------------------------------------------------------------- */
+/* Global */
+.body {
+  background: #010015; }
+
+.media-container {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%; }
+
+.page-content-fl {
+  min-height: calc(100vh - 6.0625rem); }
+
+@media (max-width: 991.98px) {
+  h1, .h1 {
+    font-size: 2.125rem; }
+
+  h2, .h2 {
+    font-size: 1.75rem; }
+
+  h3, .h3 {
+    font-size: 1.5rem; }
+
+  h4, .h4 {
+    font-size: 1.45rem; }
+
+  h5, .h5 {
+    font-size: 1.4rem; } }
+@media (max-width: 767.98px) {
+  h1, .h1 {
+    font-size: 1.5rem; }
+
+  h2, .h2 {
+    font-size: 1.38rem; }
+
+  h3, .h3 {
+    font-size: 1.35rem; }
+
+  h4, .h4 {
+    font-size: 1.25rem; }
+
+  h5, .h5 {
+    font-size: 1.2rem; } }
+.col-xr-space {
+  padding-left: .9375rem;
+  padding-top: .9375rem;
+  padding-right: .9375rem;
+  padding-bottom: .9375rem; }
+
+@media (min-width: 1200px) {
+  .col-xr-space {
+    padding-top: .9375rem;
+    padding-left: .9375rem;
+    padding-right: 0;
+    padding-bottom: 0; } }
+/* Header */
+.dropdown-menu.mt-2{
+  top: 43px !important;
+}
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
+  background-color: transparent;
+  color: #6ddbf9;
+}
+
+.dropdown-toggle.user-link{
+  background-color:transparent;
+  border-color: transparent;
+}
+.main-header {
+  position: fixed;
+  width: 100%;
+  z-index: 1060; }
+  .main-header .nav-link {
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear; }
+  .main-header .lnav-box {
+    width: auto; }
+  .main-header .logo-wrapper {
+    font-family: "Inter", sans-serif;
+    line-height: 1;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #6ddbf9;
+    display: flex;
+    align-items: center; }
+    .main-header .logo-wrapper img {
+      max-width: 5.7rem;
+      margin-right: .5rem; }
+  .main-header .dropdown-menu {
+    position: relative;
+    padding: 0;
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both; }
+    .main-header .dropdown-menu:before {
+      content: "";
+      position: absolute;
+      left: 1.3rem;
+      top: -.55rem;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -o-transform: translateX(-50%);
+      transform: translateX(-50%);
+      border-bottom: 0.55rem solid #11304c;
+      border-right: .45rem solid transparent;
+      border-left: .45rem solid transparent; }
+    .main-header .dropdown-menu.dropdown-menu-wh:before {
+      border-bottom: 0.55rem solid #2af270; }
+    .main-header .dropdown-menu.dropdown-menu-right:before {
+      right: .45rem;
+      left: auto; }
+    .main-header .dropdown-menu .dropdown-inner {
+      background: #11304c;
+      overflow: hidden; }
+    .main-header .dropdown-menu .dropdown-load-more {
+      background: #0e283f;
+      color: #6ddbf9;
+      font-weight: 600; }
+    .main-header .dropdown-menu .dropdown-scrollbar {
+      max-height: 21.875rem; }
+  .main-header .cart_list_hr .cart_list_item_hr:not(:last-child) {
+    position: relative; }
+    .main-header .cart_list_hr .cart_list_item_hr:not(:last-child):after {
+      content: "";
+      display: block;
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(42, 242, 112, 0.75), rgba(0, 0, 0, 0));
+      margin-top: 1rem;
+      margin-bottom: 1rem; }
+  .main-header .main-navbar {
+    padding-left: 0;
+    padding-right: 0; }
+    .main-header .main-navbar .cart-img {
+      max-width: 4.5rem;
+      width: 100%; }
+    .main-header .main-navbar .cart-nav-desc {
+      max-width: 9.375rem;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .main-header .main-navbar .nav-icon {
+      color: #6ddbf9; }
+      .main-header .main-navbar .nav-icon:hover, .main-header .main-navbar .nav-icon:focus {
+        color: #09b0de; }
+    .main-header .main-navbar .sidebar-toggler-wrapper {
+      width: 3.875rem;
+      height: 3.875rem;
+      color: #6ddbf9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-transition: all 0.8s linear;
+      -moz-transition: all 0.8s linear;
+      -ms-transition: all 0.8s linear;
+      transition: all 0.8s linear; }
+    .main-header .main-navbar .notf-item .notf-link {
+      text-align: center; }
+    .main-header .main-navbar .notf-item .badge {
+      position: absolute; }
+    .main-header .main-navbar .userTH-item {
+      text-align: center; }
+    .main-header .main-navbar .user-item .user-link {
+      text-transform: inherit;
+      letter-spacing: normal; }
+    .main-header .main-navbar .user-item .user-avatar {
+      max-width: 2.5rem;
+      height: 2.5rem;
+      vertical-align: middle; }
+  .main-header .img-lang {
+    max-width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle; }
+
+@media (min-width: 768px) {
+  .main-header .lnav-box {
+    width: 15rem; } }
+/* Panels */
+.main-container {
+  padding-top: 3.875rem;
+  min-height: 100vh;
+  background:url(../img/starsky.jpg);
+  align-items: center;
+  background-size: cover;
+  background-position: center center;
+  padding-bottom: 100px;
+  padding-top: 50px;
+}
+
+.head-link{
+  font-size: 1.55rem;
+  margin-right: 1rem;
+}
+
+
+
+
+

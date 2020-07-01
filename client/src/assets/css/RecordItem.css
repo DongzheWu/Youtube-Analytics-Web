@@ -1,0 +1,81 @@
+#hover-element-time{
+    display: none;
+    position: absolute;
+    color:rgb(119, 201, 252);
+    /* background-color: rgba(153, 153, 153, 0.6); */
+    padding: 7px;
+    border: solid 1px;
+}
+
+.fa-clock:hover #hover-element-time{
+    display: block;
+}
+.fa-clock{
+    display: inline;
+    margin-right: 1rem;
+}
+
+#hover-element-count{
+    display: none;
+    position: absolute;
+    color:rgb(119, 201, 252);
+    /* background-color: rgba(153, 153, 153, 0.6); */
+    padding: 7px;
+    border: solid 1px;
+}
+
+.fa-calculator:hover #hover-element-count{
+    display: block;
+}
+
+.fa-calculator{
+    display: inline;
+    margin-right: 1rem;
+}
+
+
+#hover-element-increase{
+    display: none;
+    position: absolute;
+    color:rgb(119, 201, 252);
+    /* background-color: rgba(153, 153, 153, 0.6); */
+    padding: 7px;
+    border: solid 1px;
+}
+
+.fa-chart-line:hover #hover-element-increase{
+    display: block;
+}
+
+.fa-chart-line{
+    display: inline;
+    margin-right: 1rem;
+}
+
+.record-span{
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+.record-title{
+    margin-left: 0.3rem !important;
+}
+
+.view-count{
+    color:rgb(114, 247, 99);
+    font-size: 1.3rem;  
+}
+.increase-number{
+    color:rgb(230, 0, 0);
+    font-size: 1.3rem;
+}
+
+.attributes{
+    font-size: 1.3rem;
+}
+
+.record-item{
+    width: 100%;
+
+    border: 1.2px solid rgba(101, 237, 247, 0.8);
+    /* box-shadow: 2px 2px 2px #65edf7; */
+}

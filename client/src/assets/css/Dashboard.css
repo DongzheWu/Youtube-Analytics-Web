@@ -1,0 +1,13 @@
+.dash-container{
+    background: linear-gradient(to bottom, #010015 0%, #01001f 50%, #010015 100%);
+    padding-top: 3.875rem;
+    padding-bottom: 3.875rem;
+    min-height: 900px;
+    background-size: cover;
+}
+.form-combine{
+    margin-left: 3rem;
+    margin-bottom: 3rem;
+    background: url('../img/sky5.jpg');
+}
+
