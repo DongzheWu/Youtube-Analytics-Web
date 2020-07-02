@@ -391,7 +391,7 @@ function intervalFunc(){
     }); 
 }
 
-setInterval(intervalFunc, 1000 * 60 * 60 * 24);
+setInterval(intervalFunc, 1000 * 60 * 60);
 // function intervalFunc() {
 //     const User = mongoose.model('users');
 //     const Record = mongoose.model('records');
