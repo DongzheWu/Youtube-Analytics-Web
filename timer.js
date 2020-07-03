@@ -13,8 +13,9 @@ function timer(){
     const mongoose = require('mongoose');
     const {google} = require('googleapis');
     const keys = require('./config/keys');
-
+    require('./models/Video');
     const Video = mongoose.model('videos');
+
     console.log("run");
     console.log("runrurnrurnrunrurnrurn");
     Video.find(function(err, videos){
