@@ -19,8 +19,9 @@ function timer(){
     console.log("run");
     console.log("runrurnrurnrunrurnrurn");
     Video.find(function(err, videos){
+        console.log(videos);
         videos.forEach(async(video) => {
-
+            console.log(video);
             if(video.recentViewCount){
                 await google.youtube('v3').videos.list({
                     key: getAPIKey(),
