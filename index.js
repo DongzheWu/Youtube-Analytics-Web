@@ -346,9 +346,10 @@ app.post('/track/new', async (req, res) =>{
 
 
 
-function intervalFunc(){
+function interval(){
     const Video = mongoose.model('videos');
     console.log("run");
+    console.log("runrurnrurnrunrurnrurn");
     Video.find(function(err, videos){
         videos.forEach(async(video) => {
 
@@ -390,10 +391,9 @@ function intervalFunc(){
         });
     }); 
 }
-function interval(){
-    console.log("runrurnrurnrunrurnrurn");
-}
-setInterval(interval, 1000 * 60);
+interval()
+
+setInterval(interval, 1000 * 60 * 60);
 // function intervalFunc() {
 //     const User = mongoose.model('users');
 //     const Record = mongoose.model('records');
