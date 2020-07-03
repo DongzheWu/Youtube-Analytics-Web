@@ -1,6 +1,7 @@
 module.exports = app => {
     const {google} = require('googleapis');
     const keys = require('../config/keys');
+    const mongoose = require('mongoose');
     const Video = mongoose.model('videos');
 
     var count = 1;
