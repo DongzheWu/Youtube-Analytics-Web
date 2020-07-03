@@ -59,8 +59,8 @@ function timer(){
     }); 
 }
 
-
-setInterval(timer, 1000 * 60 * 5);
+timer();
+setInterval(timer, 1000 * 60 * 60 * 24);
     
    
 
