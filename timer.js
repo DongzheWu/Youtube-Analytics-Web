@@ -1,4 +1,9 @@
-
+const express = require('express');
+const mongoose = require('mongoose');
+const {google} = require('googleapis');
+const keys = require('./config/keys');
+require('./models/Video');
+const Video = mongoose.model('videos');
 
 var count = 1;
 function getAPIKey(){
@@ -9,12 +14,7 @@ function getAPIKey(){
 
 function timer(){
 
-    const express = require('express');
-    const mongoose = require('mongoose');
-    const {google} = require('googleapis');
-    const keys = require('./config/keys');
-    require('./models/Video');
-    const Video = mongoose.model('videos');
+
 
     console.log("run");
     console.log("runrurnrurnrunrurnrurn");
@@ -44,6 +44,7 @@ function timer(){
                     });
                 });
             }else{
+                console.log("add recent view");
                 await google.youtube('v3').videos.list({
                     key: getAPIKey(),
                     part: 'statistics',
