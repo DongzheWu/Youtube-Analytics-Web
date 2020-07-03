@@ -346,54 +346,54 @@ app.post('/track/new', async (req, res) =>{
 
 
 
-function interval(){
-    const Video = mongoose.model('videos');
-    console.log("run");
-    console.log("runrurnrurnrunrurnrurn");
-    Video.find(function(err, videos){
-        videos.forEach(async(video) => {
+// function interval(){
+//     const Video = mongoose.model('videos');
+//     console.log("run");
+//     console.log("runrurnrurnrunrurnrurn");
+//     Video.find(function(err, videos){
+//         videos.forEach(async(video) => {
 
-            if(video.recentViewCount){
-                await google.youtube('v3').videos.list({
-                    key: getAPIKey(),
-                    part: 'statistics',
-                    id: video.videoId,
-                }).then(async(rep) => {
-                    var dt = new Date();
-                    await Video.updateOne({
-                        googleId: video.googleId,
-                        keyword: video.keyword,
-                        videoId: video.videoId
+//             if(video.recentViewCount){
+//                 await google.youtube('v3').videos.list({
+//                     key: getAPIKey(),
+//                     part: 'statistics',
+//                     id: video.videoId,
+//                 }).then(async(rep) => {
+//                     var dt = new Date();
+//                     await Video.updateOne({
+//                         googleId: video.googleId,
+//                         keyword: video.keyword,
+//                         videoId: video.videoId
                    
-                    },
-                    {
-                        $push:{
-                            values: rep.data.items[0].statistics.viewCount - video.recentViewCount,
-                            redates: dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate()
-                        },
-                        recentViewCount: rep.data.items[0].statistics.viewCount
+//                     },
+//                     {
+//                         $push:{
+//                             values: rep.data.items[0].statistics.viewCount - video.recentViewCount,
+//                             redates: dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate()
+//                         },
+//                         recentViewCount: rep.data.items[0].statistics.viewCount
     
-                    });
-                });
-            }else{
-                await google.youtube('v3').videos.list({
-                    key: getAPIKey(),
-                    part: 'statistics',
-                    id: video.videoId,
-                }).then(async(rep) => {
-                   video.recentViewCount =  rep.data.items[0].statistics.viewCount;
-                   await video.save();
-                });
-            }
+//                     });
+//                 });
+//             }else{
+//                 await google.youtube('v3').videos.list({
+//                     key: getAPIKey(),
+//                     part: 'statistics',
+//                     id: video.videoId,
+//                 }).then(async(rep) => {
+//                    video.recentViewCount =  rep.data.items[0].statistics.viewCount;
+//                    await video.save();
+//                 });
+//             }
 
 
 
-        });
-    }); 
-}
-interval()
+//         });
+//     }); 
+// }
+// interval()
 
-setInterval(interval, 1000 * 60 * 60);
+// setInterval(interval, 1000 * 60 * 60);
 // function intervalFunc() {
 //     const User = mongoose.model('users');
 //     const Record = mongoose.model('records');
