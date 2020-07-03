@@ -390,8 +390,10 @@ function intervalFunc(){
         });
     }); 
 }
-
-setInterval(intervalFunc, 1000 * 60 * 60);
+function interval(){
+    console.log("runrurnrurnrunrurnrurn");
+}
+setInterval(interval, 1000 * 60);
 // function intervalFunc() {
 //     const User = mongoose.model('users');
 //     const Record = mongoose.model('records');
