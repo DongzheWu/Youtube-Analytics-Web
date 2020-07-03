@@ -64,5 +64,6 @@ module.exports = app => {
     }
     app.get('/getNewCount', (req, res) => {
         getNewCount();
+        res.send();
     });
 }
