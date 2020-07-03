@@ -4,7 +4,7 @@ function timer(){
 }
 
 
-setInterval(timer, 1000 * 60 * 60);
+setInterval(timer, 1000 * 60);
     
    
     // require('../models/Video');
