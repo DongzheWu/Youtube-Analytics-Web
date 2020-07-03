@@ -60,10 +60,11 @@ module.exports = app => {
     
             });
         }); 
-        app.get('/getNewCount', (req, res) => {
-            getNewCount();
-        });
+
         
         
     }
+    app.get('/getNewCount', (req, res) => {
+        getNewCount();
+    });
 }
