@@ -18,11 +18,9 @@ module.exports = app => {
         console.log("run");
         console.log("runrurnrurnrunrurnrurn");
         Video.find(function(err, videos){
-            console.log("aaaaaaaaaa");
-            console.log(err);
-            console.log(videos);
+
             videos.forEach(async(video) => {
-                console.log(video);
+      
                 if(video.recentViewCount){
                     await google.youtube('v3').videos.list({
                         key: getAPIKey(),
