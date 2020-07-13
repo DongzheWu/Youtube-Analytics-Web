@@ -20,7 +20,7 @@ const renderInput = ({input, label, meta}) => {
             <InputGroup  className="mb-3 track-input">
             <FormControl {...input} autoComplete="off" placeholder=" Add Keyword"/>
             <InputGroup.Append>
-                <button className="track-button"><i class="fas fa-plus track-fas"></i></button>
+                <button className="track-button"><i className="fas fa-plus track-fas"></i></button>
                     
             </InputGroup.Append>
             </InputGroup>

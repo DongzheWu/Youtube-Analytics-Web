@@ -3039,7 +3039,8 @@ input[type="button"].btn-block {
 .nav-tabs {
   border-bottom: 0 solid rgba(42, 242, 112, 0.2); }
   .nav-tabs .nav-item {
-    margin-bottom: 0; }
+    margin-bottom: 0;
+   }
   .nav-tabs .nav-link {
     border: 0 solid transparent;
     border-top-left-radius: 0.25rem;
@@ -24458,7 +24459,7 @@ ul.list-style-square {
 
 .line-height-5,
 .lh-5 {
-  line-height: 1.5 !important; }
+  line-height: 0.95 !important; }
 
 .line-height-6,
 .lh-6 {
@@ -24952,4 +24953,8 @@ input[type="range"]:focus + .rangeslider .rangeslider__handle {
 .range-list-md {
   min-height: 17.625rem; }
 
+
+.user-item {
+  margin-right: 2rem;
+}
 /*# sourceMappingURL=main.css.map */

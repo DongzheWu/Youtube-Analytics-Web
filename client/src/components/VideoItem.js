@@ -1,6 +1,7 @@
 import React from 'react';
 import './VideoItem.css';
 import KeywordList from './KeywordList';
+import {Row, Col, Image} from 'react-bootstrap';
 
 
 class VideoItem extends React.Component{
@@ -20,6 +21,14 @@ class VideoItem extends React.Component{
         
     };
 
+    renderDisplay = (display, video) =>{
+        if(display){
+            return <span><span className="video-span">Description:</span><span>{video.snippet.description}</span></span>;
+        }else{
+            return <span></span>;
+        }
+    }
+
 
 
     render () {
@@ -27,20 +36,40 @@ class VideoItem extends React.Component{
         const video = this.props.video.items[0];
         return(
             <div>
-            <div onClick={() => this.onVideoSelect()} className="video-item item" >
-            <img alt={video.snippet.title} className="ui image" src={video.snippet.thumbnails.medium.url} />
-            <div className="info content">
-                <div className="header">视频名字 videoTitle : { video.snippet.title }</div>
-                <div className="content">频道名称 channelTitle :{ video.snippet.channelTitle }</div>
-                <div className="content">关键词 keywords： <KeywordList keywords = { video.snippet.tags}/></div>
-                <div className="content">观看量 viewCount：{video.statistics.viewCount }</div>
-                <div className="content">点赞 likeCount： { video.statistics.likeCount }</div>
-                <div className="content">评论 commentCount： { video.statistics.commentCount }</div>
-                <div className="content">不喜欢 dislikeCount： { video.statistics.dislikeCount }</div>
-                <div className="content">发布时间 publishedAt： { video.snippet.publishedAt }</div>
+            <Row className="video-item item">
+
+            {/* <div className="video-item item" > */}
+            <Col md={12} lg={3}>
+            
+
+            <Image onClick={() => this.onVideoSelect()} alt={video.snippet.title} src={video.snippet.thumbnails.medium.url} className="center-block" thumbnail />
+            </Col>
+            <Col md={12} lg={9}> 
+            {/* <div className="info content"> */}
+                <div className="video-info">
+                <span className="video-span">VideoTitle:</span><span className="video-span-right">{ video.snippet.title }</span>
+                <span className="video-span">ChannelTitle:</span><span className="video-span-right">{ video.snippet.channelTitle }</span>
+                </div>
+
+          
+                <div className="video-keyword"><span className="video-span">Keywords：</span><KeywordList keywords = { video.snippet.tags}/></div>
+                <div className="video-info">
+                <span className="video-span">ViewCount:</span><span className="video-span-right">{video.statistics.viewCount }</span>
+                <span className="video-span">LikeCount:</span><span className="video-span-right">{ video.statistics.likeCount }</span>
+                <span className="video-span">CommentCount:</span><span className="video-span-right">{ video.statistics.commentCount }</span>
+                <span className="video-span">DislikeCount:</span><span className="video-span-right">{ video.statistics.dislikeCount }</span>
+               <span className="video-span">PublishedTime:</span><span className="video-span-right">{ video.snippet.publishedAt }</span>
+                {/* </div> */}
+
             </div>
-            </div>
-            <div className="content"> { this.state.display && "描述 description :" + video.snippet.description }</div>   
+            </Col>
+            </Row>
+            {/* </div> */}
+            <Row>
+            <Col>
+            <div className="descrip"> {this.renderDisplay(this.state.display, video)}</div>  
+            </Col>
+            </Row> 
             </div>  
         );
   

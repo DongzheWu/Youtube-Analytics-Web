@@ -28,7 +28,12 @@ class TrendChart extends Component{
 
       ],
       options:{
-        scaleFontColor: 'red',
+        legend: {
+          labels: {
+              fontColor: "white",
+              fontSize: 18
+          }
+      },
         scales: {
           xAxes: [{ 
             gridLines: {
@@ -36,7 +41,8 @@ class TrendChart extends Component{
                 zeroLineColor: '#ffffff'
             },
             ticks: {
-              fontColor: "#CCC", 
+              fontColor: "white", 
+              fontSize: 18
             },
         }],
         yAxes: [{ 
@@ -45,7 +51,8 @@ class TrendChart extends Component{
               zeroLineColor: '#ffffff'
           },
           ticks: {
-            fontColor: "#CCC", 
+            fontColor: "white", 
+            fontSize: 18
           },
       }],
         }

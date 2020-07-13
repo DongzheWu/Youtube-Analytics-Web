@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoItem from './VideoItem';
 import { connect } from 'react-redux';
+import { Container } from 'react-bootstrap';
 
 const VideoList = props =>{
 
@@ -10,7 +11,7 @@ const VideoList = props =>{
         return <VideoItem key={key} video={videos[index]} />;
     });
 
-    return <div>{renderedList}</div>;
+    return <div style={{ marginLeft: '5%', marginRight: '5%', backgroundColor: 'rgba(0, 0, 0, 0.65)'}}>{renderedList}</div>;
     // return <div>List</div>;
 }
 

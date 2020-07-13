@@ -16,6 +16,7 @@ const { response } = require('express');
 require('./models/User');
 require('./models/Record');
 require('./models/Video');
+require('./models/Topic');
 require('./services/passport');
 
 
@@ -86,43 +87,16 @@ async function getInfo(items){
 
 }
 
-// app.post("/search", function(req, res){
-//     // var term = req.body.keyword;
-//     console.log(".............................................")
-//     console.log(req.body.term);
-
-//     google.youtube('v3').search.list({
-//         key: keys.googleAPIKey,
-//         part: 'snippet',
-//         q: req.body.term,
-//         type: 'video',
-//         maxResults: 3,
-//       }).then((response) => {
-//           var d = response;
-//         //   console.log(d.data.items);
-//           getInfo(d.data.items).then((rp) => {
-//               console.log(rp);
-//               console.log(typeof(rp));
-//             //   res.write({'message': rp});
-//               res.json({data: rp});
-//               res.send();
-//           });
-
-
-
-//       }).catch((err) => {
-//           console.log(err);
-//       });
-// });
 
 
 
     
 app.post("/trend", function(req, res, next){
     var items = req.body.items;
+
     var length = req.body.length;
     var country = req.body.country;
-
+    console.log(items);
     var dt = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
     if(length == "7 days"){
         dt = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
@@ -149,7 +123,7 @@ app.post("/trend", function(req, res, next){
         if(err){
             console.error('there was an error!', err);
         }else{
-          
+
             var data = JSON.parse(results).default;
         
             // var date = [];
@@ -178,6 +152,9 @@ app.post("/trend", function(req, res, next){
     });
 });
 
+
+
+
 // app.get("/bili", function(req, res, next){
 //     axios.get('https://search.bilibili.com/all', {
 //         params: {
@@ -197,7 +174,7 @@ app.post("/trend", function(req, res, next){
 
 
 
-//----------------------------------------------------------
+
 app.delete('/track/:id', async(req, res) => {
     console.log("call delete");
     const id = req.params.id;
@@ -298,184 +275,10 @@ app.post('/track/new', async (req, res) =>{
 
 
 
-
-    // await User.find({googleId: req.user.googleId, trackList: {$in: [ keyword ]}}, async(err, result) => {
-    //     if(err){
-    //         console.log(err);
-    //     }else{
-    //         console.log("add one item");
-    //         if(result.length == 0){
-    //             await User.updateOne(
-    //                 { googleId: req.user.googleId },
-    //                 { $push: {trackList: keyword, dateList: Date.now()} }
-    //             ).then(async(curUser) => {
-    //                 const Track = mongoose.model('tracks');
-                    // await google.youtube('v3').search.list({
-                    //     key: keys.googleAPIKey,
-                    //     part: 'snippet',
-                    //     q: keyword,
-                    //     type: 'video',
-                    //     maxResults: 5,
-                    //     }).then(async(response) => {
-                    //         await saveInfo(response.data.items, req.user.googleId, keyword).then(async() => {
-                    //             // await User.find(  { googleId: req.user.googleId},'trackList', (req, trackList) => {
-                    //             //     res.json(trackList);
-                            
-                    //             //     res.send();
-                    //             // });
-                    //             console.log("send");
-                    //             res.json(keyword);
-                    //             res.send();
-                            
-
-                    //         }).catch((e) => {
-                    //             console.log(e);
-                    //         });
-                    //     });
-                // });
-    //         }else{
-    //             await User.find(  { googleId: req.user.googleId},'trackList', (req, trackList) => {
-    //                 res.json(trackList);
-            
-    //                 res.send();
-    //             });
-    //         }
-    //     }
-    // })
 });
 
 
 
-// function interval(){
-//     const Video = mongoose.model('videos');
-//     console.log("run");
-//     console.log("runrurnrurnrunrurnrurn");
-//     Video.find(function(err, videos){
-//         videos.forEach(async(video) => {
-
-//             if(video.recentViewCount){
-//                 await google.youtube('v3').videos.list({
-//                     key: getAPIKey(),
-//                     part: 'statistics',
-//                     id: video.videoId,
-//                 }).then(async(rep) => {
-//                     var dt = new Date();
-//                     await Video.updateOne({
-//                         googleId: video.googleId,
-//                         keyword: video.keyword,
-//                         videoId: video.videoId
-                   
-//                     },
-//                     {
-//                         $push:{
-//                             values: rep.data.items[0].statistics.viewCount - video.recentViewCount,
-//                             redates: dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate()
-//                         },
-//                         recentViewCount: rep.data.items[0].statistics.viewCount
-    
-//                     });
-//                 });
-//             }else{
-//                 await google.youtube('v3').videos.list({
-//                     key: getAPIKey(),
-//                     part: 'statistics',
-//                     id: video.videoId,
-//                 }).then(async(rep) => {
-//                    video.recentViewCount =  rep.data.items[0].statistics.viewCount;
-//                    await video.save();
-//                 });
-//             }
-
-
-
-//         });
-//     }); 
-// }
-// interval()
-
-// setInterval(interval, 1000 * 60 * 60);
-// function intervalFunc() {
-//     const User = mongoose.model('users');
-//     const Record = mongoose.model('records');
-//     User.find(function(err, res){
-//         console.log(res);
-
-//         res.forEach((user) => {
-//             user.tracks.forEach((item) => {
-//                 console.log(res.tracks);
-//                 item.videoIds.forEach((videoId) => {
-//                     Record.find({
-//                         googleId: item.googleId,
-//                         keyword: item.keyword,
-//                         videoId: videoId
-//                     }, async(e, records) => {
-//                         if(records.length == 0){
-//                             console.log("new record");
-//                             await google.youtube('v3').videos.list({
-//                                 key: keys.googleAPIKey,
-//                                 part: 'snippet,statistics',
-//                                 id: videoId,
-//                             }).then((rep) => {
-//                                 new Record({
-//                                     googleId: user.googleId,
-//                                     keyword: item.keyword,
-//                                     videoId: videoId,
-//                                     title: rep.data.items[0].snippet.title,
-//                                     tags: rep.data.items[0].snippet.tags,
-//                                     values: [rep.data.items[0].statistics.viewCount],
-//                                     redates: [Date.now()]
-//                                 }).save();
-                
-//                             }).catch((err) => {
-//                                 console.log(err);
-//                             });
-//                         }else{
-//                             console.log("old record");
-//                             await google.youtube('v3').videos.list({
-//                                 key: keys.googleAPIKey,
-//                                 part: 'statistics',
-//                                 id: videoId,
-//                             }).then((rep) => {
-//                                 console.log(Date.now());
-//                                 console.log(rep.data.items[0].statistics.viewCount);
-//                                 console.log(videoId);
-//                                 Record.updateOne(
-//                                     {
-//                                         googleId: item.googleId,
-//                                         keyword: item.keyword,
-//                                         videoId: videoId,
-//                                     },
-//                                     {
-//                                         $push: {
-//                                             values: rep.data.items[0].statistics.viewCount,
-//                                             redates: Date.now()
-//                                         },
-//                                     },
-        
-//                                     (err) =>{
-//                                         if(err){
-//                                             console.log(err);
-//                                         }
-//                                     }
-        
-//                                 );
-        
-//                             }).catch((err) => {
-//                                 console.log(err);
-//                             });
-        
-        
-        
-//                         }
-//                     });
-//                 });
-//                 console.log(item.videoIds);
-        
-//             });
-//         });
-
-//     });
-// }
   
 
 const Video = mongoose.model('videos');
@@ -555,19 +358,10 @@ module.exports.timer = function(){
 require('./routes/authRoutes')(app);
 require('./routes/searchRoute')(app);
 require('./routes/recordRoutes')(app);
+require('./routes/topicRoutes')(app);
 require('./routes/topRoute')(app);
 require('./routes/timer')(app);
 
-// app.get('/', (req, res) => {
-//     res.send({ hi: 'there'});
-//     const User = mongoose.model('users');
- 
-
-//     await User.updateOne(
-//         { googleId: req.user.googleId },
-//         { $push: {trackList: "粽子", dateList: Date.now()} }
-//     )
-// });
 
 
 if(process.env.NODE_ENV === 'production'){

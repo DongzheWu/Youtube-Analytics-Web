@@ -8,6 +8,8 @@ import Landing from './Landing';
 import Dashboard from './Dashboard';
 import Trendboard from './Trendboard';
 import Mapboard from './Mapboard';
+import Loginboard from './Loginboard';
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
@@ -24,6 +26,7 @@ class App extends Component {
             <Route exact path="/track" component={Dashboard} />
             <Route exact path="/trend" component={Trendboard} />
             <Route exact path="/map" component={Mapboard} />
+            <Route exact path="/login" component={Loginboard} />
 
             
 

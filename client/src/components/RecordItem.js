@@ -16,7 +16,7 @@ const getAverage = values => {
         
         var avg = sum / values.length;
         console.log(avg);
-        return avg;
+        return avg.toFixed(2);
     }else{
         return "ToBeUpdated";
     }

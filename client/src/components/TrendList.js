@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import TrendItem from './TrendItem';
 import { Button} from 'react-bootstrap';
-import { deleteTrend, getGTrend } from '../actions';
+import { deleteTrend, getGTrend, saveTrend, getTopics } from '../actions';
 import '../assets/css/TrendItem.css';
-import {DropdownButton, Dropdown} from 'react-bootstrap';
+import {DropdownButton, Dropdown, Container} from 'react-bootstrap';
+
 
 class TrendList extends React.Component{
     constructor(props){
@@ -14,6 +15,9 @@ class TrendList extends React.Component{
           length: "1 year",
           country: "Global"
         };
+    }
+    componentDidMount(){
+      this.props.getTopics();
     }
 
     toggleCheckbox = e => {
@@ -33,9 +37,15 @@ class TrendList extends React.Component{
       }
 
       submitTrend = () => {
+        console.log("submit");
         if(this.state.trendArr.length > 0 && this.state.trendArr.length <= 5){
             this.props.getGTrend(this.state.trendArr, this.state.length, this.state.country);
         }
+      }
+
+      saveFunction = () =>{
+        console.log("save1");
+        this.props.saveTrend(this.props.trends);
       }
 
 
@@ -77,6 +87,16 @@ class TrendList extends React.Component{
     });
   }
 
+  saveButton = () =>{
+    if(this.props.auth){
+      console.log(this.props.auth);
+      return (<div><Button className="btn-display btn-sumbit" variant="success" type="submit"onClick={this.saveFunction}>Save</Button></div>);
+      
+    }else{
+      console.log("no auth");
+      return <span></span>;
+    }
+  }
 
   render(){
 
@@ -84,15 +104,16 @@ class TrendList extends React.Component{
 
 
         return (
-            <div>
+          <div style={{ marginBottom: "90px"}}>
+           
               
             {this.renderList(this.props.trends)}
         
             <DropdownButton className="btn-display" id="dropdown-item-button" title={this.state.length}>
-            <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>7 days</Dropdown.Item>
-              <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>1 year</Dropdown.Item>
-              <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>5 years</Dropdown.Item>
-              <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>full</Dropdown.Item>
+            <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>7 DAYS</Dropdown.Item>
+              <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>1 YEAR</Dropdown.Item>
+              <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>5 YEARS</Dropdown.Item>
+              <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>FULL</Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton className="btn-display" id="dropdown-item-button" title={this.state.country}>
@@ -102,12 +123,13 @@ class TrendList extends React.Component{
               <Dropdown.Item onClick = {(e) => this.dropdownCountry(e.target.textContent)}>Vietnam</Dropdown.Item>
             </DropdownButton>
             <Button className="btn-display btn-sumbit" variant="primary" type="submit" onClick={this.submitTrend}>Submit</Button>
-
-        
-
-
+            <div>
+              {this.saveButton()}
 
             </div>
+        
+
+          </div>
         );
     }else{
         return <div></div>;
@@ -121,8 +143,12 @@ class TrendList extends React.Component{
 
 function mapStateToProps(state) {
   return {
-    trends: state.trends
+    trends: state.trends,
+    auth: state.auth
   };
 }
 
-export default connect(mapStateToProps, {deleteTrend: deleteTrend, getGTrend: getGTrend})(TrendList);
+
+
+export default connect(mapStateToProps, {deleteTrend: deleteTrend, 
+  getGTrend: getGTrend, saveTrend: saveTrend, getTopics: getTopics})(TrendList);

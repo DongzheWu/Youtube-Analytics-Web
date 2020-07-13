@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { FETCH_USER, SEARCH_KEYWORD, GET_TRACK, ADD_TRACK, DELETE_TRACK, SHOW_INFO, CHART_DATA, ADD_TREND, DELETE_TREND, GET_GTREND, GET_TOP } from './types';
+import { FETCH_USER, SEARCH_KEYWORD, GET_TRACK, ADD_TRACK, 
+  DELETE_TRACK, SHOW_INFO, CHART_DATA, ADD_TREND, DELETE_TREND, GET_GTREND, GET_TOP, GET_TOPICS } from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
@@ -85,7 +86,8 @@ export const deleteTrend = trend => dispatch => {
 
 export const getGTrend = (trends, length, country) => async dispatch => {
 
-
+  console.log(trends);
+  console.log(length);
   const res = await axios.post("/trend", {items: trends, length: length, country: country});
   dispatch({ type: GET_GTREND, payload: res.data });
 }
@@ -97,4 +99,15 @@ export const getTop = country => async dispatch => {
     dispatch({ type: GET_TOP, payload: res.data.default.trendingSearchesDays[0] });
   }
 
+}
+
+export const saveTrend = items => async dispatch => {
+  const res = await axios.post("/topics", {items: items});
+}
+
+export const getTopics = () => async dispatch => {
+  console.log("get topics");
+  const res = await axios.get("/topics");
+  console.log(res);
+  dispatch({ type: GET_TOPICS, payload: res.data});
 }

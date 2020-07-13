@@ -1,16 +1,43 @@
 .video-item{
     display: flex !important;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.7);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem;
 }
 
+
 .video-item img {
-    max-width: 100px;
+    /* max-width: 100px; */
+    cursor: pointer;
 }
 
 .info div{
-    margin-left: 15px;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    margin-left: 0.3rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.15rem;
+}
+
+.video-span{
+    margin-right: 0.3rem;
+    font-weight: bold;
+
+}
+.video-span-right{
+    margin-right: 2rem;
+}
+
+.video-info{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 90%;
+    color: rgb(255, 255, 255);
+}
+
+.video-keyword{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(100, 215, 250);
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.descrip{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 90%;
 }

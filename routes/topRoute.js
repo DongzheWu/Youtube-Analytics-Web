@@ -18,7 +18,41 @@ module.exports = app => {
         "France": "FR",
         "Germany": "DE",
         "Greece": "GR",
-        "Hong Kong": "HK"
+        "Hong Kong": "HK",
+        "Hungary": "HU",
+        "India": "IN",
+        "Indonesia": "ID",
+        "Ireland": "IE",
+        "Israel": "IL",
+        "Italy": "IT",
+        "Japan": "JP",
+        "Kenya": "KE",
+        "Malaysia": "MY",
+        "Mexico": "MX",
+        "Netherlands": "NL",
+        "New Zealand": "NZ",
+        "Nigeria": "NG",
+        "Norway": "NO",
+        "Philippines": "PH",
+        "Poland": "PL",
+        "Portugal": "PT",
+        "Romania": "RO",
+        "Russia": "RU",
+        "Saudi Arabia": "SA",
+        "Singapore": "SG",
+        "South Africa": "ZA",
+        "South Korea": "KR",
+        "Sweden": "SE",
+        "Switzerland": "CH",
+        "Taiwan": "TW",
+        "Thailand": "TH",
+        "Turkey": "TR",
+        "Ukarine": "UA",
+        "United Kingdom": "GB"
+        
+
+
+
     }
 
     app.post("/top", function(req, res){

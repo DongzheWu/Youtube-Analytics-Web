@@ -10,3 +10,5 @@ export const ADD_TREND = "add_trend";
 export const DELETE_TREND = "delete_trend";
 export const GET_GTREND = "get_gtrend";
 export const GET_TOP = "get_top";
+export const SAVE_TREND = "save_trend";
+export const GET_TOPICS = "get_topics";

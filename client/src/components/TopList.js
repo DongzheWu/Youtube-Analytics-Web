@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import '../assets/css/TopList.css';
 
 class TopList extends React.Component{
 
@@ -15,7 +15,7 @@ class TopList extends React.Component{
 
     return tops.map((top, index) => {
 
-        return <li><span>{tops[index].title.query} </span><span>Search Volume: {tops[index].formattedTraffic}</span></li>
+    return <li><span className="rank">No. {index + 1}</span><span className="rank-title">{tops[index].title.query} </span><span className="search-volume">Search Volume: {tops[index].formattedTraffic}</span></li>
       });
     
   }
