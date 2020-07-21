@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button} from 'react-bootstrap';
 import { deleteTrend, getGTrend, saveTrend, getTopics } from '../actions';
 import '../assets/css/TrendItem.css';
-import {DropdownButton, Dropdown, Container} from 'react-bootstrap';
+import {DropdownButton, Dropdown} from 'react-bootstrap';
 
 
 class TrendList extends React.Component{

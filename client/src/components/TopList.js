@@ -8,10 +8,7 @@ class TopList extends React.Component{
 
   renderList = (tops) =>{
 
-    // return tops.forEach(top => {
-    //     console.log(top.title.query);
-    //     return (<li><span>{top.title.query} </span><span> {top.formattedTraffic}</span></li>);
-    // });
+  
 
     return tops.map((top, index) => {
 

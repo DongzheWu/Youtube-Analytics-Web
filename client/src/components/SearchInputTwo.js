@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { searchKeyword } from '../actions';
 import {InputGroup, FormControl} from 'react-bootstrap';
 import '../assets/css/searchbar.css';
-import { useSpring, animated } from 'react-spring';
+import { animated } from 'react-spring';
 import history from '../history';
 
 const renderError = ({ error, touched }) => {
@@ -25,7 +25,7 @@ const renderInput = ({input, label, meta}) => {
                 {...input} autoComplete="off"
                 placeholder=" Search Youtube Keyword"
           
-                // aria-describedby="basic-addon2"
+            
                 />
          
             <InputGroup.Append>
@@ -44,16 +44,12 @@ const renderInput = ({input, label, meta}) => {
 
 
 const SearchInputTwo = props =>{
-    // const [isClicked, setClicked] = useState(false);
-    // const fade = useSpring({
-    //     marginTop: isClicked ? '3%' : '10%'
 
-    // });
 
 
     const {handleSubmit, searchKeyword, auth} = props
     const SubmitFunctions = async(values) =>{
-        // setClicked(true);
+      
         if(!auth){
             history.push('./login')
         }else{

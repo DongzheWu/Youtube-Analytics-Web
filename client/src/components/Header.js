@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Nav, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { Dropdown, Navbar } from 'react-bootstrap';
 import '../assets/css/main.css';
 import '../assets/css/styles.css';
@@ -20,7 +19,7 @@ class Header extends Component {
             return (
               <Dropdown className="user-item nav-item" style={{height: '57.8px', float: 'right', marginTop:'1.3em'}}>
               <Dropdown.Toggle className="user-link nav-link d-inline-flex align-items-center h-100 small-1 pl-1 pl-sm-3 pr-0">
-              {/* <img class="user-avatar rounded-circle mr-sm-3" src="./assets/img/avatar/1.jpg" alt="Avatar" /> */}
+           
                 <div className="d-none d-sm-block lh-1">
                   <div className="lh-5">{this.props.auth.email}</div>
                   <span className="small-3"><i className="fas fa-circle text-warning small-5"></i> Online</span>
@@ -57,45 +56,6 @@ class Header extends Component {
 
         </Navbar>
 
-        {/* <Navbar expand="lg" className="main-navbar navbar navbar-expand-lg navbar-light shadow-2"> */}
-
-        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" style={{backgroundColor: 'rgba(1, 23, 46, 0.997)'}}> */}
-        {/* <Nav className="mr-auto" >
-        <SideBar pageWrapId={"page-wrap"} id={"reveal"} outerContainerId={"App"} /> */}
-        {/* <Link to={'/'} className="nav-link">
-          Home
-          </Link>
-          <Link       
-              to={this.props.auth ? '/track' : '/login'}
-              className="nav-link"
-            >
-              Track
-            </Link>
-          <Link to={'/trend'} className="nav-link">
-          Trend
-          </Link>
-
-          <Link to={'/map'} className="nav-link">
-          Map
-          </Link>
-
-          <Link to={'/analytics'} className="nav-link">
-          Analytics
-          </Link> */}
-
-
-    
- 
-      {/* </Nav> */}
-
-      
-      {/* <div style={{ marginRight: '10px'}}>
-         {this.renderContent()}
-      </div> */}
-      {/* </Navbar.Collapse> */}
-      {/* </Navbar> */}
-      
 
 
       </header>

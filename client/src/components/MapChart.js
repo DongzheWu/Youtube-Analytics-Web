@@ -92,7 +92,7 @@ const MapChart = ({ setTooltipContent, getTop }) => {
                     getTop(`${NAME}`);
                   }}
                   onMouseEnter={() => {
-                    const { NAME, POP_EST } = geo.properties;
+                    const { NAME } = geo.properties;
                     setTooltipContent(`${NAME}`);
                   }}
                   onMouseLeave={() => {

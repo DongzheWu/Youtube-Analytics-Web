@@ -2,7 +2,7 @@
     display: none;
     position: absolute;
     color:rgb(119, 201, 252);
-    /* background-color: rgba(153, 153, 153, 0.6); */
+   
     padding: 7px;
     border: solid 1px;
 }
@@ -19,7 +19,7 @@
     display: none;
     position: absolute;
     color:rgb(119, 201, 252);
-    /* background-color: rgba(153, 153, 153, 0.6); */
+
     padding: 7px;
     border: solid 1px;
 }

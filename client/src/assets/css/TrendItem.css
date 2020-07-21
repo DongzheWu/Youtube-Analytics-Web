@@ -13,9 +13,6 @@
     position: initial;
 }
 
-/* [type="checkbox"]:not(:checked), [type="checkbox"]:checked{
-    opacity: 1 !important;
-} */
 
 .trend-item{
     font-size: 1.5rem;

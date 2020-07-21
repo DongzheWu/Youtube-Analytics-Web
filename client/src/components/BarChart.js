@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Bar} from 'react-chartjs-2';
-import { connect } from 'react-redux';
 
 class BarChart extends Component{
   constructor(props){
@@ -10,18 +9,10 @@ class BarChart extends Component{
         labels: ["Video1", "Video2", "Video3", "Video4", "Video5", "Video6", "Video7", "Video8", "Video9", "Video10"],
         datasets: [{
             label: "View Count",
-            // backgroundColor: ["#24C9F6", "#2af270","#f7f794","#f74545","#f745e5"],
             data: [478,267,734,784,433,555,1000,132,777,333]
           }]
       },
-    //   colors: [
-    //     'rgb(75,192,192,1)',
-    //     'rgba(39,245,94,1)',
-    //     'rgba(250,248,122,1)',
-    //     'rgba(250,84,55,1)',
-    //     'rgba(242,64,245,1)'
 
-    //   ],
       options:{
         legend: {
           labels: {
@@ -49,7 +40,7 @@ class BarChart extends Component{
             fontColor: "white", 
             fontSize: 12,
             callback: function(value) {
-                return value.substr(0, 10);//truncate
+                return value.substr(0, 10);
             },
           },
       }],

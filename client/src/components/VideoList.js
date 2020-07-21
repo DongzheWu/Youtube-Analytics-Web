@@ -1,7 +1,6 @@
 import React from 'react';
 import VideoItem from './VideoItem';
 import { connect } from 'react-redux';
-import { Container } from 'react-bootstrap';
 
 const VideoList = props =>{
 
@@ -18,6 +17,7 @@ const VideoList = props =>{
 
 
   
+
   const mapStateToProps = (state) =>{
     return {videos: state.search};
   };

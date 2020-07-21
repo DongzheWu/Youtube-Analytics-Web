@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Pie} from 'react-chartjs-2';
-import { connect } from 'react-redux';
 
 class PieChart extends Component{
   constructor(props){
@@ -14,14 +13,7 @@ class PieChart extends Component{
             data: [2478,5267,734,784,433,321]
           }]
       },
-    //   colors: [
-    //     'rgb(75,192,192,1)',
-    //     'rgba(39,245,94,1)',
-    //     'rgba(250,248,122,1)',
-    //     'rgba(250,84,55,1)',
-    //     'rgba(242,64,245,1)'
 
-    //   ],
       options:{
         legend: {
           labels: {
@@ -76,10 +68,6 @@ getChartData = canvas =>{
 
     return PieData;
   }else{
-    // data.datasets.forEach((set, i) => {
-    //   set.backgroundColor = this.setGradientColor(canvas);
-    //   set.borderColor = 'rgba(75,192,192,1)';    
-    //   });
 
       return data;
   }

@@ -25,7 +25,6 @@ const renderInput = ({input, label, meta}) => {
                 {...input} autoComplete="off"
                 placeholder=" Search Youtube Keyword"
           
-                // aria-describedby="basic-addon2"
                 />
          
             <InputGroup.Append>
@@ -45,10 +44,7 @@ const renderInput = ({input, label, meta}) => {
 
 const SearchInput = props =>{
     const [isClicked, setClicked] = useState(false);
-    const fade = useSpring({
-        marginTop: isClicked ? '3%' : '10%'
 
-    });
     const initFade = useSpring({
         from: {
             marginTop: '30%'

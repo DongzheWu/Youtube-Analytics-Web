@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import MapChart from './MapChart';
 import TopList from './TopList';
 import ReactTooltip from "react-tooltip";

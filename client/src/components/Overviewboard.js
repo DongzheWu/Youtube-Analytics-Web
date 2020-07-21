@@ -10,8 +10,7 @@ function Overviewboard(){
 
     return (
         <div className="dash-container" style={{background:'rgba(9, 147, 186,1)'}}>
-        {/* <div style={{marginTop: '2rem'}}> */}
-        {/* <Container className="analytics-container"> */}
+ 
             <Container>
                 <Row className="over-row">
                         <Col align="center" lg={6} sm={12}>
@@ -108,7 +107,7 @@ function Overviewboard(){
 
                 </Row>
                 </Container>
-        {/* </Container> */}
+    
         </div>
 
 
