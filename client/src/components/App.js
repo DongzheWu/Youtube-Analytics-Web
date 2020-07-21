@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
@@ -9,6 +9,10 @@ import Dashboard from './Dashboard';
 import Trendboard from './Trendboard';
 import Mapboard from './Mapboard';
 import Loginboard from './Loginboard';
+import Analyticsboard from './Analyticsboard';
+import '../assets/css/SideBar.css';
+import Overviewboard from './Overviewboard';
+import history from '../history';
 
 class App extends Component {
   componentDidMount() {
@@ -18,20 +22,35 @@ class App extends Component {
   render() {
     
     return (
+      <div id="App">
 
-        <BrowserRouter>
-
+      <div id="outer-container">
+        <Router history={history}>
+     
+              
+              
+            
+          
             <Header />
-            <Route exact path="/" component={Landing} />
+            <div id="page-wrap">
+
+            <Route exact path="/" component={Overviewboard} />
+            <Route exact path="/search" component={Landing} />
             <Route exact path="/track" component={Dashboard} />
             <Route exact path="/trend" component={Trendboard} />
             <Route exact path="/map" component={Mapboard} />
             <Route exact path="/login" component={Loginboard} />
+            <Route exact path="/analytics" component={Analyticsboard} />
+    
 
+            </div>
             
 
-        </BrowserRouter>
+        </Router>
+        </div>
+        </div>
 
+   
     );
   }
 }

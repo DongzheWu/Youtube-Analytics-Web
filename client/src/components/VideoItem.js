@@ -23,7 +23,7 @@ class VideoItem extends React.Component{
 
     renderDisplay = (display, video) =>{
         if(display){
-            return <span><span className="video-span">Description:</span><span>{video.snippet.description}</span></span>;
+            return <span><span className="video-span">Description:</span><span>{video.description}</span></span>;
         }else{
             return <span></span>;
         }
@@ -33,7 +33,7 @@ class VideoItem extends React.Component{
 
     render () {
         console.log(this.props);
-        const video = this.props.video.items[0];
+        const video = this.props.video;
         return(
             <div>
             <Row className="video-item item">
@@ -42,23 +42,23 @@ class VideoItem extends React.Component{
             <Col md={12} lg={3}>
             
 
-            <Image onClick={() => this.onVideoSelect()} alt={video.snippet.title} src={video.snippet.thumbnails.medium.url} className="center-block" thumbnail />
+            <Image onClick={() => this.onVideoSelect()} alt={video.title} src={video.thumbnails} className="center-block" thumbnail />
             </Col>
             <Col md={12} lg={9}> 
             {/* <div className="info content"> */}
                 <div className="video-info">
-                <span className="video-span">VideoTitle:</span><span className="video-span-right">{ video.snippet.title }</span>
-                <span className="video-span">ChannelTitle:</span><span className="video-span-right">{ video.snippet.channelTitle }</span>
+                <span className="video-span">VideoTitle:</span><span className="video-span-right">{ video.title }</span>
+                <span className="video-span">ChannelTitle:</span><span className="video-span-right">{ video.channelTitle }</span>
                 </div>
 
           
-                <div className="video-keyword"><span className="video-span">Keywords：</span><KeywordList keywords = { video.snippet.tags}/></div>
+                <div className="video-keyword"><span className="video-span">Tags：</span><KeywordList keywords = { video.tags}/></div>
                 <div className="video-info">
-                <span className="video-span">ViewCount:</span><span className="video-span-right">{video.statistics.viewCount }</span>
-                <span className="video-span">LikeCount:</span><span className="video-span-right">{ video.statistics.likeCount }</span>
-                <span className="video-span">CommentCount:</span><span className="video-span-right">{ video.statistics.commentCount }</span>
-                <span className="video-span">DislikeCount:</span><span className="video-span-right">{ video.statistics.dislikeCount }</span>
-               <span className="video-span">PublishedTime:</span><span className="video-span-right">{ video.snippet.publishedAt }</span>
+                <span className="video-span">ViewCount:</span><span className="video-span-right">{video.viewCount }</span>
+                <span className="video-span">LikeCount:</span><span className="video-span-right">{ video.likeCount }</span>
+                <span className="video-span">CommentCount:</span><span className="video-span-right">{ video.commentCount }</span>
+                <span className="video-span">DislikeCount:</span><span className="video-span-right">{ video.dislikeCount }</span>
+               <span className="video-span">PublishedTime:</span><span className="video-span-right">{ video.publishedAt }</span>
                 {/* </div> */}
 
             </div>

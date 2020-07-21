@@ -1,15 +1,28 @@
 .rank{
     color: white;
     font-weight: bold;
-    margin-right: 8rem;
-    font-size: 130%;
+    margin-right: 3rem;
+    margin-left: 2rem;
+    font-size: 100%;
 }
 .rank-title{
-    font-size: 130%;
+    font-size: 100%;
 }
 
 .search-volume{
-    font-size: 130%;
+    font-size: 100%;
     float: right;
 
+}
+
+.rank-des{
+    margin-top: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.rank-note{
+    color: rgba(109, 219, 249, 0.5);
+    margin-top: 2rem;
 }

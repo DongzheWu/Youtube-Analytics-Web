@@ -11,8 +11,7 @@ export const fetchUser = () => async dispatch => {
 export const searchKeyword = values =>async dispatch => {
   values = values.searchKeyword;
   const res = await axios.post('/search', {term: values});
-
-  dispatch({ type: SEARCH_KEYWORD, payload: res.data.data });
+  dispatch({ type: SEARCH_KEYWORD, payload: res.data });
 };
 
 export const getTrack = () => async dispatch => {

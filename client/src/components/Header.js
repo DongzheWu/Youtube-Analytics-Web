@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
+import { Nav, Row, Col } from 'react-bootstrap';
 import { Dropdown, Navbar } from 'react-bootstrap';
 import '../assets/css/main.css';
 import '../assets/css/styles.css';
 import '../assets/plugins/jqvmap/jqvmap.min.css'
-
+import SideBar from "./SideBar"
 
 class Header extends Component {
     renderContent() {
@@ -14,11 +14,11 @@ class Header extends Component {
           case null:
             return;
           case false:
-            return <li><a href="/auth/google" className="login-google">Login With Google</a></li>;
+            return <ui style={{float: 'right', marginTop:'1.75em'}}><a href="/auth/google" className="login-google"><i className="fab fa-google"style={{marginRight: '1em'}}></i>Login With Google</a></ui>;
           default:
 
             return (
-              <Dropdown className="user-item nav-item" style={{height: '57.8px'}}>
+              <Dropdown className="user-item nav-item" style={{height: '57.8px', float: 'right', marginTop:'1.3em'}}>
               <Dropdown.Toggle className="user-link nav-link d-inline-flex align-items-center h-100 small-1 pl-1 pl-sm-3 pr-0">
               {/* <img class="user-avatar rounded-circle mr-sm-3" src="./assets/img/avatar/1.jpg" alt="Avatar" /> */}
                 <div className="d-none d-sm-block lh-1">
@@ -43,13 +43,27 @@ class Header extends Component {
   render() {
     return (
       <header className="main-header">
+        <SideBar pageWrapId={"page-wrap"} id={"reveal"} outerContainerId={"App"} />
+        <Navbar>
+        
+          <Row>
+          <Col lg={6}>
+            <div style={{marginLeft: '4em', marginTop:'1em', fontSize: '1.3rem', fontWeight: '600', fontFamily: 'Open Sans,sans-serif'}}>YouTube Analytics</div>
+          </Col>
+          <Col lg={6}>
+            {this.renderContent()}
+          </Col>
+          </Row>
 
-        <Navbar expand="lg" className="main-navbar navbar navbar-expand-lg navbar-light shadow-2">
+        </Navbar>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" style={{backgroundColor: 'rgba(1, 23, 46, 0.997)'}}>
-        <Nav className="mr-auto" >
-        <Link to={'/'} className="nav-link">
+        {/* <Navbar expand="lg" className="main-navbar navbar navbar-expand-lg navbar-light shadow-2"> */}
+
+        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" style={{backgroundColor: 'rgba(1, 23, 46, 0.997)'}}> */}
+        {/* <Nav className="mr-auto" >
+        <SideBar pageWrapId={"page-wrap"} id={"reveal"} outerContainerId={"App"} /> */}
+        {/* <Link to={'/'} className="nav-link">
           Home
           </Link>
           <Link       
@@ -66,17 +80,21 @@ class Header extends Component {
           Map
           </Link>
 
+          <Link to={'/analytics'} className="nav-link">
+          Analytics
+          </Link> */}
+
 
     
+ 
       {/* </Nav> */}
-      </Nav>
 
       
-      <div style={{ marginRight: '10px'}}>
+      {/* <div style={{ marginRight: '10px'}}>
          {this.renderContent()}
-      </div>
-      </Navbar.Collapse>
-      </Navbar>
+      </div> */}
+      {/* </Navbar.Collapse> */}
+      {/* </Navbar> */}
       
 
 

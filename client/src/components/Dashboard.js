@@ -15,7 +15,7 @@ class Dashboard extends React.Component{
     return (
       <main className="dash-container">
           < Container>
-          <div className="form-combine"><TrackList /></div>
+          <div><TrackList /></div>
           <RecordList />
           </Container>
 

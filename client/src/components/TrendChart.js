@@ -11,12 +11,26 @@ class TrendChart extends Component{
         labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
         datasets: [
             {
-                label: "Demo",
+                label: "Demo1",
                 data: [1, 30, 25, 4, 78, 90, 88, 87],
-                borderColor : 'rgba(255,255,192,1)',
+                borderColor : 'rgba(75,192,192,1)',
                 borderCapStyle: 'round',
                 fill: true,
-            }
+            },
+            {
+              label: "Demo2",
+              data: [25, 50, 100, 32, 1, 88, 99, 23],
+              borderColor : 'rgba(39,245,94,1)',
+              borderCapStyle: 'round',
+              fill: true,
+          },
+          {
+            label: "Demo3",
+            data: [88, 77, 82, 63, 55, 69, 70, 73],
+            borderColor : 'rgba(250,248,122,1)',
+            borderCapStyle: 'round',
+            fill: true,
+        }
           ]
       },
       colors: [
@@ -62,7 +76,7 @@ class TrendChart extends Component{
 
 
 }
-setGradientColor = (canvas) => {
+setGradientColor = (canvas, color) => {
   const ctx = canvas.getContext('2d');
   const gradient = ctx.createLinearGradient(0, 0, 500, 400);
   gradient.addColorStop(0, "rgba(75,192,192,0.8)");
@@ -100,8 +114,8 @@ getChartData = canvas =>{
     return trendData;
   }else{
     data.datasets.forEach((set, i) => {
-      set.backgroundColor = this.setGradientColor(canvas);
-      set.borderColor = 'rgba(75,192,192,1)';    
+      set.backgroundColor = this.setGradientColor(canvas,this.state.colors[i]);
+      // set.borderColor = 'rgba(75,192,192,1)';    
       });
   }
 

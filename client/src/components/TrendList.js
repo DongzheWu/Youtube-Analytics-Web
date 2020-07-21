@@ -56,8 +56,6 @@ class TrendList extends React.Component{
  
         return (
             <div className="trend-item">
-            <span>{trends[index]}</span>
-            
             <label>
               <input
               className="check-box"
@@ -67,6 +65,9 @@ class TrendList extends React.Component{
                 onChange={this.toggleCheckbox}
               />
             </label>
+            <span>{trends[index]}</span>
+            
+
             <i class="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index])}}></i>
           </div>
         );
@@ -104,7 +105,7 @@ class TrendList extends React.Component{
 
 
         return (
-          <div style={{ marginBottom: "90px"}}>
+          <div style={{ marginBottom: "30px"}}>
            
               
             {this.renderList(this.props.trends)}
@@ -124,6 +125,7 @@ class TrendList extends React.Component{
             </DropdownButton>
             <Button className="btn-display btn-sumbit" variant="primary" type="submit" onClick={this.submitTrend}>Submit</Button>
             <div>
+              <p>Add keywords you want to search, select at most five keywords, then click Submit to get search trend lines</p>
               {this.saveButton()}
 
             </div>

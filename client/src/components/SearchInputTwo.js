@@ -43,26 +43,21 @@ const renderInput = ({input, label, meta}) => {
 }
 
 
-const SearchInput = props =>{
-    const [isClicked, setClicked] = useState(false);
-    const fade = useSpring({
-        marginTop: isClicked ? '3%' : '10%'
+const SearchInputTwo = props =>{
+    // const [isClicked, setClicked] = useState(false);
+    // const fade = useSpring({
+    //     marginTop: isClicked ? '3%' : '10%'
 
-    });
-    const initFade = useSpring({
-        from: {
-            marginTop: '30%'
-        },
-        marginTop: isClicked ? '3%' : '10%'
-    });
+    // });
+
 
     const {handleSubmit, searchKeyword, auth} = props
     const SubmitFunctions = async(values) =>{
+        // setClicked(true);
         if(!auth){
             history.push('./login')
         }else{
             await searchKeyword(values);
-            setClicked(true);
         }
 
         
@@ -70,7 +65,7 @@ const SearchInput = props =>{
        
     return (
     
-            <animated.form className="search-form" style={initFade} onSubmit={
+            <animated.form className="search-form" style={{marginTop: '3%'}} onSubmit={
                 handleSubmit((values) => SubmitFunctions(values))}>
                     
                 <Field type="text" name="searchKeyword" component={renderInput} label="Video Search" />
@@ -95,15 +90,11 @@ const mapStateToProps = state => {
 
 var temp = connect(
     mapStateToProps,
-    {
-        searchKeyword: searchKeyword,
-        
-    }
-)(SearchInput)
+    {searchKeyword: searchKeyword}
+
+)(SearchInputTwo)
 
 export default reduxForm({
     form: 'searchBar',
     validate: validate
 })(temp);
-
-  

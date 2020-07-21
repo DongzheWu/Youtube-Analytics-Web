@@ -1,0 +1,21 @@
+.over-row{
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+}
+
+.over-row-2{
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+    background-color: rgba(5,55,107,0.6);
+}
+.over-row p{
+    color: rgba(5, 239, 247,1);
+    font-family: proxima-nova,sans-serif;
+    text-align: left;
+}
+
+.over-row-2 p{
+    color: rgba(5, 239, 247,1);
+    font-family: proxima-nova,sans-serif;
+    text-align: left;
+}

@@ -1,21 +1,17 @@
 import React from 'react';
 import SearchInput from './SearchInput';
-
+import { connect } from 'react-redux';
 class SearchBar extends React.Component{
     
-    // onSubmit = (form) => {
-    //     console.log("ze")
-    //     console.log(form);
-    //     searchKeyword(form);
-    // }
 
     render(){
         return <SearchInput/>;
     }
 }
-// const mapStateToProps = form =>{
-//     return {form};
-//   };
+const mapStateToProps = state =>{
+    return {search: state.search};
+  };
 
-// export default connect(mapStateToProps, searchKeyword)(SearchBar);
-export default SearchBar;
+export default connect(mapStateToProps)(SearchBar);
+
+

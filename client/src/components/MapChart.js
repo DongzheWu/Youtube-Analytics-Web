@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import {
   ZoomableGroup,
   ComposableMap,
@@ -7,6 +7,7 @@ import {
 } from "react-simple-maps";
 import { getTop } from '../actions';
 import { connect } from 'react-redux';
+import '../assets/css/MapChart.css';
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
@@ -15,10 +16,70 @@ const geoUrl =
 
 const MapChart = ({ setTooltipContent, getTop }) => {
 
+  const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
+  function handleZoomIn() {
+    if (position.zoom >= 4) return;
+    setPosition(pos => ({ ...pos, zoom: pos.zoom * 2 }));
+  }
+
+  function handleZoomOut() {
+    if (position.zoom <= 1) return;
+    setPosition(pos => ({ ...pos, zoom: pos.zoom / 2 }));
+  }
+
+  function handleMoveEnd(position) {
+    setPosition(position);
+  }
+
   return (
     <>
-      <ComposableMap data-tip="" projectionConfig={{ scale: 200 }}>
-        <ZoomableGroup>
+      <div className="controls">
+        <button onClick={handleZoomIn}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="3"
+          >
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+        <button onClick={handleZoomOut}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="3"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+      </div>
+    <div>
+      
+      <ComposableMap data-tip="" projectionConfig={{ 
+
+        rotate: [-10, 0, 0],
+        scale: 155
+      }}
+      width={800}
+      height={400}
+      style={{
+        width: "100%",
+        height: "auto",
+     }}
+        >
+        <ZoomableGroup 
+          zoom={position.zoom}
+          center={position.coordinates}
+          onMoveEnd={handleMoveEnd}
+          maxZoom = {3}
+        >
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
@@ -30,21 +91,26 @@ const MapChart = ({ setTooltipContent, getTop }) => {
                     setTooltipContent(`${NAME}`);
                     getTop(`${NAME}`);
                   }}
+                  onMouseEnter={() => {
+                    const { NAME, POP_EST } = geo.properties;
+                    setTooltipContent(`${NAME}`);
+                  }}
                   onMouseLeave={() => {
                     setTooltipContent("");
                   }}
                   style={{
                     default: {
-                      fill: "#D6D6DA",
+                      fill: "#FFFFFF",
                       outline: "none"
                     },
                     hover: {
-                      fill: "#F53",
-                      outline: "none"
+                      fill: "#6ddbf9",
+                      outline: "none",
+                      cursor: "pointer",
                     },
                     pressed: {
-                      fill: "#E42",
-                      outline: "none"
+                      fill: "rgba(1, 23, 46, 0.996)",
+                      outlineColor: "rgba(1, 23, 46, 0.996)"
                     }
                   }}
                 />
@@ -53,9 +119,11 @@ const MapChart = ({ setTooltipContent, getTop }) => {
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
+
+      </div>
     </>
   );
 };
 
-const tmp = connect(null, {getTop: getTop})(MapChart)
+const tmp = connect(null, {getTop: getTop})(MapChart);
 export default memo(tmp);

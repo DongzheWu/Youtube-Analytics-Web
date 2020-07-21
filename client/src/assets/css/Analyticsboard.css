@@ -1,0 +1,27 @@
+.analytics-row{
+    border-top: 1px solid rgba(42, 242, 112, 0.2);
+    margin-bottom: 0;
+}
+.analytics-container{
+    font-family: "Open Sans", sans-serif;
+}
+
+.analytics-col{
+    border-right: 1px solid rgba(42, 242, 112, 0.2);
+
+}
+.chart-title.left{
+    border-right: 1px solid rgba(42, 242, 112, 0.2);
+}
+
+.chart-title{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1.125rem;
+    font-weight: 200;
+    text-transform: uppercase;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+
+    border-top: 1px solid rgba(42, 242, 112, 0.2);
+}

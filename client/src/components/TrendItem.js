@@ -9,8 +9,6 @@ const TrendItem = props => {
   
     return (
         <div>
-        <span>{props.trend}</span>
-        
         <label>
           <input
           className="check-box"
@@ -18,6 +16,9 @@ const TrendItem = props => {
             type="checkbox"
           />
         </label>
+        <span>{props.trend}</span>
+        
+
         <i class="fas fa-times" onClick={() =>{props.deleteTrend(props.trend)}}></i>
       </div>
     );
