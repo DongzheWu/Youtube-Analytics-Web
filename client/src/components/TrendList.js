@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import TrendItem from './TrendItem';
 import { Button} from 'react-bootstrap';
 import { deleteTrend, getGTrend, saveTrend, getTopics } from '../actions';
 import '../assets/css/TrendItem.css';

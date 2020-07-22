@@ -11,7 +11,6 @@ const VideoList = props =>{
     });
 
     return <div style={{ marginLeft: '5%', marginRight: '5%', backgroundColor: 'rgba(0, 0, 0, 0.65)'}}>{renderedList}</div>;
-    // return <div>List</div>;
 }
 
 

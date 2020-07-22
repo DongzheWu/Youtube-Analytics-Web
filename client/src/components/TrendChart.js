@@ -89,13 +89,6 @@ getChartData = canvas =>{
   console.log(this.props.gtrendsData);
 
   if(this.props.gtrendsData.items){
-    // data.labels = this.props.gtrendsData.dates;
-    
-    // data.datasets.forEach((set, i) => {
-    // set.backgroundColor = this.setGradientColor(canvas);
-    // set.data = this.props.lineChartData.values;
-    // set.borderColor = 'rgba(75,192,192,1)';    
-    // });
     console.log(this.props.gtrendsData.values);
     var trendData = {
         labels: this.props.gtrendsData.date,
@@ -115,7 +108,6 @@ getChartData = canvas =>{
   }else{
     data.datasets.forEach((set, i) => {
       set.backgroundColor = this.setGradientColor(canvas,this.state.colors[i]);
-      // set.borderColor = 'rgba(75,192,192,1)';    
       });
   }
 

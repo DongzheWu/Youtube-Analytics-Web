@@ -96,13 +96,13 @@ app.post("/trend", function(req, res, next){
 
     var length = req.body.length;
     var country = req.body.country;
-    console.log(items);
+    console.log(length);
     var dt = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
-    if(length == "7 days"){
+    if(length == "7 DAYS"){
         dt = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-      }else if(length == "full"){
+      }else if(length == "FULL"){
         dt = new Date('2004-01-01');
-      }else if(length == "5 years"){
+      }else if(length == "5 YEARS"){
         dt = new Date(new Date().setFullYear(new Date().getFullYear() - 5));;
       }
 

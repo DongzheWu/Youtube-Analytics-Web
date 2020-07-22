@@ -38,14 +38,14 @@ class VideoItem extends React.Component{
             <div>
             <Row className="video-item item">
 
-            {/* <div className="video-item item" > */}
+         
             <Col md={12} lg={3}>
             
 
             <Image onClick={() => this.onVideoSelect()} alt={video.title} src={video.thumbnails} className="center-block" thumbnail />
             </Col>
             <Col md={12} lg={9}> 
-            {/* <div className="info content"> */}
+ 
                 <div className="video-info">
                 <span className="video-span">VideoTitle:</span><span className="video-span-right">{ video.title }</span>
                 <span className="video-span">ChannelTitle:</span><span className="video-span-right">{ video.channelTitle }</span>
@@ -59,12 +59,12 @@ class VideoItem extends React.Component{
                 <span className="video-span">CommentCount:</span><span className="video-span-right">{ video.commentCount }</span>
                 <span className="video-span">DislikeCount:</span><span className="video-span-right">{ video.dislikeCount }</span>
                <span className="video-span">PublishedTime:</span><span className="video-span-right">{ video.publishedAt }</span>
-                {/* </div> */}
+         
 
             </div>
             </Col>
             </Row>
-            {/* </div> */}
+    
             <Row>
             <Col>
             <div className="descrip"> {this.renderDisplay(this.state.display, video)}</div>  

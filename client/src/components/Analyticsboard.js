@@ -236,7 +236,6 @@ class Analyticsboard extends React.Component{
   render(){
     return (
       <div className="dash-container">
-        {/* <div style={{marginTop: '2rem'}}> */}
         <Container className="analytics-container">
         <Row>
           <SearchInputTwo />
@@ -279,7 +278,6 @@ class Analyticsboard extends React.Component{
               {this.renderBarChart()}
           </Col>
         </Row>
-        {/* </div> */}
         </Container>
       </div>
 
