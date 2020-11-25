@@ -13,10 +13,6 @@ module.exports = app => {
 
     function getNewCount(){
 
-        
-
-        console.log("run");
-        console.log("runrurnrurnrunrurnrurn");
         Video.find(function(err, videos){
 
             videos.forEach(async(video) => {

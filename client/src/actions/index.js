@@ -101,7 +101,7 @@ export const getTop = country => async dispatch => {
 }
 
 export const saveTrend = items => async dispatch => {
-  const res = await axios.post("/topics", {items: items});
+  await axios.post("/topics", {items: items});
 }
 
 export const getTopics = () => async dispatch => {

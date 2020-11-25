@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import logo from './google-icon.svg';
+import React from "react";
 import '../assets/css/Overviewboard.css';
 
 import { Row, Col, Image, Container } from 'react-bootstrap';
 
 function Overviewboard(){
-
-
 
     return (
         <div className="dash-container" style={{background:'rgba(9, 147, 186,1)'}}>

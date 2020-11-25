@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {Col, Row, Container, ProgressBar} from "react-bootstrap";
 import PieChart from "./PieChart";
 import BarChart from "./BarChart";
@@ -9,10 +9,6 @@ import SearchInputTwo from './SearchInputTwo';
 
 class Analyticsboard extends React.Component{
 
-    constructor(props){
-        super(props);
-
-    }
     renderPieChart = () => {
       var videos = this.props.videos;
       console.log(new Date().getFullYear());
@@ -27,7 +23,6 @@ class Analyticsboard extends React.Component{
         for(var i = 0; i < videos.length; i++){
           
           var year = videos[i].publishedAt.split("-")[0];
-          console.log(year);
           if(year == cur){
             one++;
           }else if(year == cur - 1){
@@ -101,8 +96,8 @@ class Analyticsboard extends React.Component{
       // <span className="video-span">CommentCount:</span><span className="video-span-right">{ video.commentCount }</span>
       if(this.props.videos.length > 0){
         var videos = this.props.videos;
-        var reptms = "/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/";
-        var hours = 0, minutes = 0, seconds = 0, totalseconds;
+        // var reptms = "/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/";
+        var hours = 0, minutes = 0, seconds = 0;
         for(var i = 0; i < videos.length; i++){
           sumView += parseInt(videos[i].viewCount, 10)
           maxView = Math.max(maxView, parseInt(videos[i].viewCount, 10));
@@ -110,13 +105,9 @@ class Analyticsboard extends React.Component{
           sumComment += parseInt(videos[i].commentCount, 10); 
           sumDuration += this.durationToSeconds(videos[i].duration);
           maxDuration = Math.max(maxDuration, this.durationToSeconds(videos[i].duration));
-          
-    
-
-
 
         }
-        var averageView = Math.round(sumView / videos.length);
+        averageView = Math.round(sumView / videos.length);
         var averageComment = Math.round(sumComment / videos.length);
         // var averageDuration = sumDuration / videos.length;
         console.log(averageView);
@@ -132,20 +123,13 @@ class Analyticsboard extends React.Component{
         }
         var bar3 = Math.round(averageComment / maxComment * 100);
         var bar4 = Math.round(averageDuration / maxDuration * 100);
-
-
-
-        
-
-        
-        // console.log(averageDuration);
       }else{
-        var averageView = 100000;
-        var averageComment = 123;
-        var maxView = 200000;
+        averageView = 100000;
+        averageComment = 123;
+        maxView = 200000;
         var duration = "5:24";
-        var bar3 = 75;
-        var bar4 = 35;
+        bar3 = 75;
+        bar4 = 35;
 
       }
       var bar1 = Math.round((averageView / maxView) * 100);
@@ -284,10 +268,6 @@ class Analyticsboard extends React.Component{
     
     );
 }
-
-
-
-  
 
 }
 

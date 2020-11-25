@@ -27,18 +27,6 @@ module.exports = app => {
             var snippet = rep.data.items[i].snippet;
             var contentDetails = rep.data.items[i].contentDetails;
             var statistics = rep.data.items[i].statistics;
-            // console.log(rep.data.items);
-            // console.log(snippet.publishedAt);
-            // console.log(snippet.channelTitle);
-            // console.log(snippet.title);
-            // console.log(snippet.description);
-            // console.log(snippet.thumbnails.medium.url);
-            // console.log(snippet.tags);
-            // console.log(contentDetails.duration);
-            // console.log(statistics.viewCount);
-            // console.log(statistics.likeCount);
-            // console.log(statistics.dislikeCount);
-            // console.log(statistics.commentCount);
             var parts = snippet.publishedAt.split("T");
             arr.push({
                 'title': snippet.title,
@@ -95,10 +83,7 @@ module.exports = app => {
                 //   console.log(d.data.items);
                   var rp = await getInfo(d.data.items);
     
-             
                   res.send(rp);
-        
-        
         
               }).catch((err) => {
                   console.log(err);
