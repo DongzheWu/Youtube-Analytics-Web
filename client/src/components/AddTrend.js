@@ -12,7 +12,7 @@ const renderError = ({ error, touched }) => {
         );
     }
 }
-const renderInput = ({input, label, meta}) => {
+const renderInput = ({input, meta}) => {
 
     return (
         <div className="track-div">
@@ -38,7 +38,6 @@ const AddTrend = props =>{
     return (
         <div>
             <form onSubmit={handleSubmit((values) => addTrend(values))}>
-                    
                 <Field type="text" name="addTrend" component={renderInput} label="add Track" />
             </form>
         </div>

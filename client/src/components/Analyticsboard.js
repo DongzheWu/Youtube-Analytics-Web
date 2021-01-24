@@ -11,7 +11,6 @@ class Analyticsboard extends React.Component{
 
     renderPieChart = () => {
       var videos = this.props.videos;
-      console.log(new Date().getFullYear());
       var cur = new Date().getFullYear();
       var one = 0;
       var two = 0;
@@ -109,10 +108,7 @@ class Analyticsboard extends React.Component{
         }
         averageView = Math.round(sumView / videos.length);
         var averageComment = Math.round(sumComment / videos.length);
-        // var averageDuration = sumDuration / videos.length;
-        console.log(averageView);
-        console.log(maxView);
-        console.log(averageComment);
+
         var averageDuration = Math.round(sumDuration / videos.length);
         hours = Math.round(averageDuration / 3600);
         minutes = Math.round((averageDuration % 3600) / 60);

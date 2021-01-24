@@ -5,18 +5,20 @@ const passport = require('passport');
 const keys = require('./config/keys');
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const app = express();
 
-
+//Load NoSQL data schema models.
 require('./models/User');
 require('./models/Record');
 require('./models/Video');
 require('./models/Topic');
+
+//Load passort to support google account sign in.
 require('./services/passport');
 
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true});
-
-const app = express();
+app.use(express.static('client/build'));
 
 app.use(
     cookieSession({
@@ -31,25 +33,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
+//Load routes modules to handle requests from client.
 require('./routes/authRoute')(app);
 require('./routes/searchRoute')(app);
-require('./routes/recordRoute')(app);
 require('./routes/topicRoutes')(app);
 require('./routes/topRoute')(app);
 require('./routes/trackRoute')(app);
 require('./routes/trendRoute')(app);
-require('./routes/timer')(app);
-
-
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'));
-
-    const path = require('path');
-    app.get('*', (req, res) => {
-        res.sendFile(path. resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-}
-
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}/`);
+});

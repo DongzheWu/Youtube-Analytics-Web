@@ -86,10 +86,8 @@ setGradientColor = (canvas, color) => {
 
 getChartData = canvas =>{
   const data = this.state.chartData;
-  console.log(this.props.gtrendsData);
 
   if(this.props.gtrendsData.items){
-    console.log(this.props.gtrendsData.values);
     var trendData = {
         labels: this.props.gtrendsData.date,
         datasets: []

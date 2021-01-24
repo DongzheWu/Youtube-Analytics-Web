@@ -50,7 +50,7 @@ setGradientColor = (canvas) => {
 
 getChartData = canvas =>{
   const data = this.state.chartData;
-  console.log(this.props.chartData);
+
 
   if(this.props.chartData){
 

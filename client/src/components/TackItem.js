@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import '../assets/css/TrackItem.css';
 
 const TrackItem = props => {
-    console.log("item");
   
     return (
         

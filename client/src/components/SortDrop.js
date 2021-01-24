@@ -8,7 +8,6 @@ class SortDrop extends React.Component{
     
 
     render(){
-        console.log(this.props.videos);
         if(this.props.display === false) return <div></div>
         return (
 

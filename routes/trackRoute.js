@@ -2,13 +2,6 @@ const keys = require('../config/keys');
 const mongoose = require('mongoose');
 
 module.exports = app => {
-    var count = 1;
-    function getAPIKey(){
-        count++;
-        count = count % 6;
-        return keys.googleAPIKeys[count];
-    }
-
     async function saveInfo(items, googleId, keyword){
 
         const User = mongoose.model('users');
@@ -37,9 +30,12 @@ module.exports = app => {
     }
 
     app.delete('/track/:id', async(req, res) => {
-        console.log("call delete");
+
+
+     
         const id = req.params.id;
-        console.log(id);
+
+
         const User = mongoose.model('users');
         const Video = mongoose.model('videos');
         const curUser = await User.findOne({ googleId: req.user.googleId }, {
@@ -79,7 +75,7 @@ module.exports = app => {
         });
         if(!exitUser){
             await google.youtube('v3').search.list({
-                key: getAPIKey(),
+                key: keys.googleAPIKey,
                 part: 'snippet',
                 q: keyword,
                 type: 'video',

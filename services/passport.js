@@ -5,17 +5,19 @@ const keys = require('../config/keys');
 
 const User = mongoose.model('users');
 
+//Serialize user data
 passport.serializeUser((user, done) => {
     done(null, user.id);
   });
-  
-  passport.deserializeUser((id, done) => {
+
+//Deserialize user data
+passport.deserializeUser((id, done) => {
     User.findById(id).then(user => {
       done(null, user);
     });
-  });
+});
   
-
+//Login with google account
 passport.use(
     new GoogleStrategy({
         clientID: keys.googleClientID,
@@ -24,11 +26,12 @@ passport.use(
     }, 
     async (accessToken, refreshToken, profile, done) => {
         const existingUser = await User.findOne({ googleId: profile.id });
-        console.log(profile);
+   
         if (existingUser) {
           return done(null, existingUser);
         }
-  
+        
+        //Generate new user data
         const user = await new User({ 
             googleId: profile.id,
             email: profile.displayName,
@@ -38,5 +41,4 @@ passport.use(
         }).save();
         done(null, user);
       }
-
 ));

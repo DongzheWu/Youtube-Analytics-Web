@@ -15,7 +15,6 @@ const getAverage = values => {
         var sum = values.reduce((previous, current) => current += previous);
         
         var avg = sum / values.length;
-        console.log(avg);
         return avg.toFixed(2);
     }else{
         return "ToBeUpdated";
@@ -26,7 +25,6 @@ const getAverage = values => {
 const RecordItem = props => {
     
     const {video} = props;
-    console.log(video);
 
   
     return (

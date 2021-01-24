@@ -3,9 +3,7 @@ const { Schema } = mongoose;
 
 const TopicSchema = new Schema({
     googleId: String,
-    topicList: [String],
-    topTopic: String
-
+    topicList: [Object],
 });
 
 mongoose.model('topics', TopicSchema);

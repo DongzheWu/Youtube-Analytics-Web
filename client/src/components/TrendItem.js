@@ -5,7 +5,6 @@ import { deleteTrend } from '../actions';
 import { Form } from 'react-bootstrap';
 
 const TrendItem = props => {
-    console.log("item");
   
     return (
         <div>

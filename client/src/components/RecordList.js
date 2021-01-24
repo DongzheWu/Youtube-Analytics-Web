@@ -20,8 +20,6 @@ class RecordList extends React.Component{
 
     render(){
         if(this.props.videos){
-            console.log("you ma");
-            console.log(this.props.videos);
             
             return (
             <div className="row">

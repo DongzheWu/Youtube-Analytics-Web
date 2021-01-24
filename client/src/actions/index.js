@@ -49,9 +49,7 @@ export const showInfo = keyword => async dispatch => {
 }
 
 export const chartData = (values, redates) => dispatch => {
-  // console.log("cahrtData");
-  // console.log(values);
-  // console.log(redates);
+
   dispatch({ type: CHART_DATA, payload: {values: values, redates: redates}});
 }
 
@@ -72,21 +70,23 @@ export const viewCountSort = videos => dispatch => {
   dispatch({ type: SHOW_INFO, payload: sortVideos });  
 }
 
-export const addTrend = trend => dispatch => {
-  dispatch({ type: ADD_TREND, payload: trend.addTrend });
+export const addTrend = trend => async dispatch => {
+
+  const res = await axios.post("/topics", {topic: trend.addTrend});
+
+  dispatch({ type: ADD_TREND, payload: res.data });
 
 }
 
-export const deleteTrend = trend => dispatch => {
+export const deleteTrend = topicId => async dispatch => {
 
-  dispatch({ type: DELETE_TREND, payload: trend });
+  await axios.delete(`/topics/${topicId}`);
+  dispatch({ type: DELETE_TREND, payload: topicId });
 
 }
 
 export const getGTrend = (trends, length, country) => async dispatch => {
 
-  console.log(trends);
-  console.log(length);
   const res = await axios.post("/trend", {items: trends, length: length, country: country});
   dispatch({ type: GET_GTREND, payload: res.data });
 }
@@ -100,13 +100,8 @@ export const getTop = country => async dispatch => {
 
 }
 
-export const saveTrend = items => async dispatch => {
-  await axios.post("/topics", {items: items});
-}
 
 export const getTopics = () => async dispatch => {
-  console.log("get topics");
   const res = await axios.get("/topics");
-  console.log(res);
   dispatch({ type: GET_TOPICS, payload: res.data});
 }

@@ -56,8 +56,7 @@ module.exports = app => {
     }
 
     app.post("/top", function(req, res){
-        country = req.body.country;
-        console.log(countryAbb[country]);
+        const country = req.body.country;
         googleTrends.dailyTrends({
             trendDate: new Date(Date.now()),
             geo: countryAbb[country],

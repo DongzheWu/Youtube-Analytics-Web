@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button} from 'react-bootstrap';
-import { deleteTrend, getGTrend, saveTrend, getTopics } from '../actions';
+import { deleteTrend, getGTrend, getTopics } from '../actions';
 import '../assets/css/TrendItem.css';
 import {DropdownButton, Dropdown} from 'react-bootstrap';
 
@@ -20,7 +20,6 @@ class TrendList extends React.Component{
     }
 
     toggleCheckbox = e => {
-        console.log(e.target.value);
         if (e.target.checked){
             this.setState({
                 trendArr: [...this.state.trendArr, e.target.value]
@@ -32,43 +31,35 @@ class TrendList extends React.Component{
           });
       
         }
-        console.log(this.state.trendArr);
       }
 
       submitTrend = () => {
-        console.log("submit");
         if(this.state.trendArr.length > 0 && this.state.trendArr.length <= 5){
             this.props.getGTrend(this.state.trendArr, this.state.length, this.state.country);
         }
       }
 
-      saveFunction = () =>{
-        console.log("save1");
-        this.props.saveTrend(this.props.trends);
-      }
-
-
 
   renderList = (trends) =>{
 
-    return Object.keys(trends).map((trend, index) => {
+    return Object.keys(trends).map(index => {
  
         return (
-            <div className="trend-item">
+            <div className="trend-item" key={trends[index].topicId}>
             <label>
               <input
               className="check-box"
-              value={trends[index]}
+              value={trends[index].topic}
                 type="checkbox"
 
                 onChange={this.toggleCheckbox}
               />
             </label>
-            <span>{trends[index]}</span>
+            <span>{trends[index].topic}</span>
             
 
-            <i class="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index])}}></i>
-          </div>
+            <i class="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index].topicId)}}></i>
+           </div>
         );
       });
     
@@ -81,22 +72,11 @@ class TrendList extends React.Component{
 
   }
   dropdownCountry = (value) => {
-    console.log(value);
     this.setState({
       country: value
     });
   }
 
-  saveButton = () =>{
-    if(this.props.auth){
-      console.log(this.props.auth);
-      return (<div><Button className="btn-display btn-sumbit" variant="success" type="submit"onClick={this.saveFunction}>Save</Button></div>);
-      
-    }else{
-      console.log("no auth");
-      return <span></span>;
-    }
-  }
 
   render(){
 
@@ -125,8 +105,6 @@ class TrendList extends React.Component{
             <Button className="btn-display btn-sumbit" variant="primary" type="submit" onClick={this.submitTrend}>Submit</Button>
             <div>
               <p>Add keywords you want to search, select at most five keywords, then click Submit to get search trend lines</p>
-              {this.saveButton()}
-
             </div>
         
 
@@ -152,4 +130,4 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps, {deleteTrend: deleteTrend, 
-  getGTrend: getGTrend, saveTrend: saveTrend, getTopics: getTopics})(TrendList);
+  getGTrend: getGTrend, getTopics: getTopics})(TrendList);
