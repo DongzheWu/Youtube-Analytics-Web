@@ -13,7 +13,7 @@ module.exports = app => {
         if(!saveTopics){
             res.send();
         }
-        res.send(saveTopics.topicList);
+        res.status(200).json(saveTopics.topicList);
     });
 
     //Post a new topic for trend.

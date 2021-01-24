@@ -31,7 +31,7 @@ class SideBar extends React.Component {
             <Link to={'/'} className="menu-item" onClick={() => this.closeMenu()}>
               <Row>
                 <Col md={4}>
-                  <i class="fas fa-home"></i>
+                  <i className="fas fa-home"></i>
                 </Col>
                 <Col md={8}>
                   <span className="side-item">Overview</span>
@@ -43,7 +43,7 @@ class SideBar extends React.Component {
             <Link to={'/search'} className="menu-item" onClick={() => this.closeMenu()}>
              <Row>
               <Col md={4}>
-                <i class="fab fa-searchengin"></i>
+                <i className="fab fa-searchengin"></i>
                 </Col>
                 <Col md={8}>
                 <span className="side-item">Search</span>
@@ -65,7 +65,7 @@ class SideBar extends React.Component {
             <Link to={'/analytics'} className="menu-item" onClick={() => this.closeMenu()}>
             <Row>
               <Col md={4}>
-                <i class="far fa-file-word side-fa"></i>
+                <i className="far fa-file-word side-fa"></i>
                 </Col>
                 <Col md={8}>
                 <span className="side-item">Keywords</span>
@@ -77,7 +77,7 @@ class SideBar extends React.Component {
   
                 <Row>
               <Col md={4}>
-              <i class="fas fa-chart-line side-fa"></i>
+              <i className="fas fa-chart-line side-fa"></i>
                 </Col>
                 <Col md={8}>
                 <span className="side-item">Trend</span>

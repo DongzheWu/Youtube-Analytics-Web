@@ -18,7 +18,7 @@ const TrendItem = props => {
         <span>{props.trend}</span>
         
 
-        <i class="fas fa-times" onClick={() =>{props.deleteTrend(props.trend)}}></i>
+        <i className="fas fa-times" onClick={() =>{props.deleteTrend(props.trend)}}></i>
       </div>
     );
 }

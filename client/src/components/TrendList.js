@@ -58,7 +58,7 @@ class TrendList extends React.Component{
             <span>{trends[index].topic}</span>
             
 
-            <i class="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index].topicId)}}></i>
+            <i className="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index].topicId)}}></i>
            </div>
         );
       });

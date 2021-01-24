@@ -11,8 +11,11 @@ class TopList extends React.Component{
   
 
     return tops.map((top, index) => {
-
-    return <li><span className="rank">No. {index + 1}</span><span className="rank-title">{tops[index].title.query} </span><span className="search-volume">{tops[index].formattedTraffic}</span></li>
+      return <li key= {tops[index].title.query}>
+        <span className="rank">No. {index + 1}</span>
+        <span className="rank-title">{tops[index].title.query} </span>
+        <span className="search-volume">{tops[index].formattedTraffic}</span>
+        </li>
       });
     
   }
@@ -25,7 +28,7 @@ class TopList extends React.Component{
 
         return (
             <div style={{marginTop: '1rem'}}>
-            <ui><span className="rank">Rank</span><span className="rank-title">Hot Topics</span><span className="search-volume">Search Volume</span></ui>
+            <div><span className="rank">Rank</span><span className="rank-title">Hot Topics</span><span className="search-volume">Search Volume</span></div>
             <ul className="list-group">{this.renderList(this.props.topData.trendingSearches)}</ul>
             </div>
           
