@@ -1,96 +1,48 @@
-const keys = require('../config/keys');
-const mongoose = require('mongoose');
+"use strict";
+
+const trackControls = require('../controls/trackControls');
 
 module.exports = app => {
-    async function saveInfo(items, googleId, keyword){
-
-        const User = mongoose.model('users');
-        await User.updateOne({ googleId: googleId }, {
-            $push: {
-                'tracks': {
-                    'keyword': keyword,
-                    'addDate': Date.now(),
-                }
-            }
-        }).then(async() => {
-            for(const item of items){
-      
+  
+  //Get track video list of current user.
+  app.get('/track', async (req, res) => {
+      if(!req.user.googleId){
+          res.status(401).json({ error: 'login-required'});
+      }
+      const trackList = await trackControls.getTrack(req.user.googleId);
+      res.status(200).send(trackList);
+  });
     
-                const Video = mongoose.model('videos');
-                const video = await new Video({
-                    googleId: googleId,
-                    keyword: keyword,
-                    videoId: item.id.videoId,
-                    videoTitle: item.snippet.title,
-                    videoPubTime: item.snippet.publishTime,
-                }).save();
-            }
-        } );
-    
+  //Post new track
+  app.post('/track', async (req, res) =>{
+    if(!req.user.googleId){
+      res.status(401).json({ error: 'login-required'});
+    }
+    const postResult = await trackControls.postTrack(req.body.keyword, req.user.googleId);
+    if(postResult.error && postResult.error === 'unavailable'){
+      res.status(503).send(postResult);
     }
 
-    app.delete('/track/:id', async(req, res) => {
+    if(postResult.error && postResult.error === 'duplicate'){
+      res.status(409).send(postResult);
+    }
 
+    res.status(200).send(postResult);
+  });
 
-     
-        const id = req.params.id;
+  //Delete a specific track
+  app.delete('/track/:id', async(req, res) => {
+    if(!req.user.googleId){
+      res.status(401).json({ error: 'login-required'});
+    }
+    const error = await trackControls.deleteTrack(req.user.googleId, req.params.id);
+    if(error === 'unavailable'){
+      res.status(503).send(error);
+    }
 
-
-        const User = mongoose.model('users');
-        const Video = mongoose.model('videos');
-        const curUser = await User.findOne({ googleId: req.user.googleId }, {
-            'tracks': {$elemMatch: {'_id': id}}
-        });
-        const keyword = curUser.tracks[0].keyword;
-        const track = await User.updateOne({ googleId: req.user.googleId }, {
-            $pull: {
-                'tracks': {
-                    '_id': id
-                }
-            }
-        });
-    
-        await Video.deleteMany({googleId: req.user.googleId, keyword: keyword});
-        res.send();
-    
-    });
-
-    app.get('/track', async (req, res) => {
-        const User = mongoose.model('users');
-        const curUser = await User.findOne(  { googleId: req.user.googleId});
-        res.send(curUser.tracks);
-    });
-
-    app.post('/track/new', async (req, res) =>{
-
-        const keyword = req.body.keyword;
-    
-        const User = mongoose.model('users');
-        const exitUser = await User.findOne({
-            'tracks':{
-                $elemMatch:{
-                    'keyword': keyword
-                }
-            }
-        });
-        if(!exitUser){
-            await google.youtube('v3').search.list({
-                key: keys.googleAPIKey,
-                part: 'snippet',
-                q: keyword,
-                type: 'video',
-                maxResults: 20,       
-            }).then(async(response) => {
-                await saveInfo(response.data.items, req.user.googleId, keyword).then(async() => {
-                    const curUser = await User.findOne(  { googleId: req.user.googleId});
-                    res.send(curUser.tracks[curUser.tracks.length - 1]);
-        
-                }).catch((err) => {
-                    console.log(err);
-                });
-            }).catch((e) => {
-                console.log(e);
-            });
-        }
-    });
+    if(error === 'user-invalid'){
+      res.status(403).send(error);
+    }
+    res.status(200).send();
+  });
 }

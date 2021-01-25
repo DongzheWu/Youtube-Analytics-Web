@@ -40,6 +40,8 @@ require('./routes/topicRoutes')(app);
 require('./routes/mapRoute')(app);
 require('./routes/trackRoute')(app);
 require('./routes/trendRoute')(app);
+require('./routes/recordRoute')(app);
+require('./routes/timer')(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

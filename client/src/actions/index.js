@@ -27,7 +27,7 @@ export const addTrack = track => async dispatch => {
   if(track){
 
     track = track.addTrack;
-    const res = await  axios.post("/track/new", {keyword: track});
+    const res = await  axios.post("/track", {keyword: track});
 
     dispatch({ type: ADD_TRACK, payload: res.data });
   }
