@@ -126,7 +126,6 @@ const saveInfo = async function(items, googleId, keyword){
       videoPubTime: item.snippet.publishTime,
     }).save();
   }
-  
 }
 const trackControls = {
   getTrack,

@@ -1,7 +1,5 @@
 "use strict";
 
-const {google} = require('googleapis');
-const keys = require('../config/keys');
 const searchControls = require('../controls/searchControls');
 
 module.exports = app => {

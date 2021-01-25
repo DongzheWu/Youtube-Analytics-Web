@@ -85,9 +85,9 @@ export const deleteTrend = topicId => async dispatch => {
 
 }
 
-export const getGTrend = (trends, length, country) => async dispatch => {
+export const getGTrend = (trends, range, country) => async dispatch => {
 
-  const res = await axios.post("/trend", {items: trends, length: length, country: country});
+  const res = await axios.post("/trend", {items: trends, range: range, country: country});
   dispatch({ type: GET_GTREND, payload: res.data });
 }
 
