@@ -1,4 +1,6 @@
-const topicControls = require('../controls/topicControls')
+"use strict";
+
+const topicControls = require('../controls/topicControls');
 
 module.exports = app => {
     

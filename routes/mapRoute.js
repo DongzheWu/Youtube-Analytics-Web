@@ -1,5 +1,7 @@
+"use strict";
+
 const googleTrends = require('google-trends-api');
-const countries = require('../models/countries')
+const countries = require('../models/countries');
 
 module.exports = app => {
   //Get hot topics from google trend
@@ -13,7 +15,6 @@ module.exports = app => {
       });
       res.status(200).send(result);
     }catch(error){
-      console.log(error);
       res.status(503).json({ error: 'unavailable'});
     }
   });
