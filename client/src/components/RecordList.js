@@ -22,7 +22,7 @@ class RecordList extends React.Component{
         if(this.props.videos){
             
             return (
-            <div className="row">
+            <div className="row record-row">
               
               <div className="col">
                 <div>

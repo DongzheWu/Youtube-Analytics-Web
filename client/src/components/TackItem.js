@@ -7,8 +7,10 @@ const TrackItem = props => {
   
     return (
         
-        <li onClick={() =>{props.showInfo(props.word.keyword)}} className="list-group-item list-group-item-action justify-content-betweenlist-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item list-group-item-action justify-content-betweenlist-group-item d-flex justify-content-between align-items-center">
+            <span className="track-name" onClick={() =>{props.showInfo(props.word.keyword)}}>
             {props.word.keyword}
+            </span>
             <span>
             <i className="material-icons" onClick={() => {
                 props.deleteTrack(props.word._id)

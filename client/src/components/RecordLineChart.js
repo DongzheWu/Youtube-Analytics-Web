@@ -11,7 +11,7 @@ class RecordLineChart extends Component{
         labels: ["1", "2", "3", "4", "5"],
         datasets: [
             {
-                label: "Demo",
+                label: "Daily Increased View Count",
                 data: [1, 2, 3, 4, 5, 6],
                 borderColor : 'rgba(75,192,192,1)',
                 borderCapStyle: 'round',

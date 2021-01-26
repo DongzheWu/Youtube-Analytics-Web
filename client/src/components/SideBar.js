@@ -2,7 +2,6 @@ import React from "react";
 import { bubble as Menu } from "react-burger-menu";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {Row, Col} from 'react-bootstrap';
 
 class SideBar extends React.Component {
     constructor (props) {
@@ -29,71 +28,72 @@ class SideBar extends React.Component {
 
             <Menu{...this.props} isOpen={ this.state.menuOpen }>
             <Link to={'/'} className="menu-item" onClick={() => this.closeMenu()}>
-              <Row>
-                <Col md={4}>
+ 
+              <div className="sidebar-row">
+              <div className="sidebar-icon">
                   <i className="fas fa-home"></i>
-                </Col>
-                <Col md={8}>
+                </div>
+                <div className="sidename-div">
                   <span className="side-item">Overview</span>
-                </Col>
-              </Row>
+                </div>
+              </div>
               
             
             </Link>
             <Link to={'/search'} className="menu-item" onClick={() => this.closeMenu()}>
-             <Row>
-              <Col md={4}>
+             <div className="sidebar-row">
+             <div className="sidebar-icon">
                 <i className="fab fa-searchengin"></i>
-                </Col>
-                <Col md={8}>
+                </div>
+                <div className="sidename-div">
                 <span className="side-item">Search</span>
-                </Col>
-                </Row>
+                </div>
+               </div>
             </Link>
 
             <Link to={'/analytics'} className="menu-item" onClick={() => this.closeMenu()}>
-            <Row>
-              <Col md={4}>
+            <div className="sidebar-row">
+            <div className="sidebar-icon">
               <i className="fas fa-chart-bar"></i>
-                </Col>
-                <Col md={8}>
+              </div>
+              <div className="sidename-div">
                 <span className="side-item">Analytics</span>
-                </Col>
-                </Row>
+                </div>
+                </div>
             </Link>
 
-            <Link to={'/analytics'} className="menu-item" onClick={() => this.closeMenu()}>
-            <Row>
-              <Col md={4}>
+        
+            {/* <div className="sidebar-row">
+            <div className="sidebar-icon">
                 <i className="far fa-file-word side-fa"></i>
-                </Col>
-                <Col md={8}>
+                </div>
+                <div className="sidename-div">
                 <span className="side-item">Keywords</span>
-                </Col>
-                </Row>
-            </Link>
+                </div>
+                </div> */}
+           
 
             <Link to={'/trend'} className="menu-item" onClick={() => this.closeMenu()}>
   
-                <Row>
-              <Col md={4}>
+            <div className="sidebar-row">
+            <div className="sidebar-icon">
               <i className="fas fa-chart-line side-fa"></i>
-                </Col>
-                <Col md={8}>
+              </div>
+              <div className="sidename-div">
                 <span className="side-item">Trend</span>
-                </Col>
-                </Row>
+                </div>
+                </div>
             </Link>
         
             <Link to={'/map'} className="menu-item" onClick={() => this.closeMenu()}>
-                <Row>
-              <Col md={4}>
+                <div className="sidebar-row">
+                <div className="sidebar-icon">
               <i className="fa fa-globe side-fa" aria-hidden="true"></i>
-                </Col>
-                <Col md={8}>
+              </div>
+              <div className="sidename-div">
                 <span className="side-item">Map</span>
-                </Col>
-                </Row>
+                </div>
+                </div>
             </Link>
         
             <Link       
@@ -101,14 +101,14 @@ class SideBar extends React.Component {
                 className="menu-item"
                 onClick={() => this.closeMenu()}
             >
-                <Row>
-              <Col md={4}>
+                <div className="sidebar-row">
+              <div className="sidebar-icon">
               <i className="fas fa-file-contract"></i>
-                </Col>
-                <Col md={8}>
+              </div>
+              <div className="sidename-div">
                 <span className="side-item">Track</span>
-                </Col>
-                </Row>
+                </div>
+                </div>
             </Link>
             </Menu>
           );

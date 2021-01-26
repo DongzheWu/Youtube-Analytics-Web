@@ -18,11 +18,7 @@ function Loginboard(){
  
       </main>
 
-    
     );
-
-  
-
 }
 
 

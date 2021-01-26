@@ -28,14 +28,14 @@ const RecordItem = props => {
 
   
     return (
-        <li onClick={() =>{
+        <li className="record-li" className="record-item list-group-item list-group-item-action justify-content-betweenlist-group-item d-flex">
+            <div>
+                <div className="row record-title" style={{overflow: "hidden"}} onClick={() =>{
             if(video.values){
                 props.chartData(video.values, video.redates)
-            }}
-                } className="record-item list-group-item list-group-item-action justify-content-betweenlist-group-item d-flex">
-            <div>
-                <div className="row record-title" style={{overflow: "hidden"}}>
+            }}}>
                     {video.videoTitle}
+                    <span id="hover-element-title">Show char by click</span>
                 </div>
                 <div className="row attributes">
                     <span className="record-span"><i class="far fa-clock"><span id="hover-element-time">Publish Time</span></i> {modifyTime(video.videoPubTime)}</span>

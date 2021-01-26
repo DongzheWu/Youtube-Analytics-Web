@@ -87,6 +87,24 @@
     background: rgba(0, 0, 0, 0.3);
   }
 
-  .side-fa{
+  /* .side-fa{
     margin-right: 2em;
+  } */
+
+  .side-item{
+    margin-left: 0;
+    padding-left: 0;
   }
+
+.sidebar-row{
+  display: flex;
+  justify-content: left;
+}
+
+.sidename-div{
+  margin-left: 1.5rem;
+}
+
+.sidebar-icon{
+  width: 25%;
+}

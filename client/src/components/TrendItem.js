@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import '../assets/css/TrendItem.css';
 import { deleteTrend } from '../actions';
-import { Form } from 'react-bootstrap';
 
 const TrendItem = props => {
   
