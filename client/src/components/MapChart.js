@@ -7,27 +7,27 @@ import {
 } from "react-simple-maps";
 import { getTop } from '../actions';
 import { connect } from 'react-redux';
-import '../assets/css/MapChart.css';
+import '../assets/css/mapChart.css';
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-
-
+/** MapChart is to display hot topics in countries. */
 const MapChart = ({ setTooltipContent, getTop }) => {
 
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
-  function handleZoomIn() {
+
+  const handleZoomIn = () => {
     if (position.zoom >= 4) return;
     setPosition(pos => ({ ...pos, zoom: pos.zoom * 2 }));
   }
 
-  function handleZoomOut() {
+  const handleZoomOut = () => {
     if (position.zoom <= 1) return;
     setPosition(pos => ({ ...pos, zoom: pos.zoom / 2 }));
   }
 
-  function handleMoveEnd(position) {
+  const handleMoveEnd = (position) => {
     setPosition(position);
   }
 
@@ -60,66 +60,66 @@ const MapChart = ({ setTooltipContent, getTop }) => {
           </svg>
         </button>
       </div>
-    <div>
-      
-      <ComposableMap data-tip="" projectionConfig={{ 
 
-        rotate: [-10, 0, 0],
-        scale: 155
-      }}
-      width={800}
-      height={400}
-      style={{
-        width: "100%",
-        height: "auto",
-     }}
-        >
-        <ZoomableGroup 
-          zoom={position.zoom}
-          center={position.coordinates}
-          onMoveEnd={handleMoveEnd}
-          maxZoom = {3}
-        >
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map(geo => (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  onClick={() => {
-                    const { NAME} = geo.properties;
-                    setTooltipContent(`${NAME}`);
-                    getTop(`${NAME}`);
-                  }}
-                  onMouseEnter={() => {
-                    const { NAME } = geo.properties;
-                    setTooltipContent(`${NAME}`);
-                  }}
-                  onMouseLeave={() => {
-                    setTooltipContent("");
-                  }}
-                  style={{
-                    default: {
-                      fill: "#FFFFFF",
-                      outline: "none"
-                    },
-                    hover: {
-                      fill: "#6ddbf9",
-                      outline: "none",
-                      cursor: "pointer",
-                    },
-                    pressed: {
-                      fill: "rgba(1, 23, 46, 0.996)",
-                      outlineColor: "rgba(1, 23, 46, 0.996)"
-                    }
-                  }}
-                />
-              ))
-            }
-          </Geographies>
-        </ZoomableGroup>
-      </ComposableMap>
+      <div>
+        <ComposableMap data-tip="" 
+        projectionConfig={{ 
+          rotate: [-10, 0, 0],
+          scale: 155
+        }}
+        //Size of the map.
+        width={800}
+        height={400}
+        style={{
+          width: "100%",
+          height: "auto",
+        }}>
+          <ZoomableGroup 
+            zoom={position.zoom}
+            center={position.coordinates}
+            onMoveEnd={handleMoveEnd}
+            maxZoom = {3}
+          >
+            <Geographies geography={geoUrl}>
+              {({ geographies }) =>
+                geographies.map(geo => (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
 
+                    //Once the country is clicked, it will call API to get hot topics
+                    onClick={() => {
+                      const { NAME} = geo.properties;
+                      setTooltipContent(`${NAME}`);
+                      getTop(`${NAME}`);
+                    }}
+                    onMouseEnter={() => {
+                      const { NAME } = geo.properties;
+                      setTooltipContent(`${NAME}`);
+                    }}
+                    onMouseLeave={() => {
+                      setTooltipContent("");
+                    }}
+                    style={{
+                      default: {
+                        fill: "#FFFFFF",
+                        outline: "none"
+                      },
+                      hover: {
+                        fill: "#6ddbf9",
+                        outline: "none",
+                        cursor: "pointer",
+                      },
+                      pressed: {
+                        fill: "rgba(1, 23, 46, 0.996)",
+                        outlineColor: "rgba(1, 23, 46, 0.996)"
+                      }
+                    }}
+                  />
+                ))}
+            </Geographies>
+          </ZoomableGroup>
+       </ComposableMap>
       </div>
     </>
   );

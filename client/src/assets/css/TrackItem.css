@@ -22,6 +22,11 @@
     color:rgba(42, 242, 112, 0.8);
 }
 
+.material-icons:hover{
+    color:rgba(139, 255, 38);
+    cursor: pointer;
+}
+
 .btn-display{
     display: inline-block;
     margin-right: 1rem;
@@ -30,4 +35,9 @@
 
 .btn-sumbit{
     float: right;
+}
+
+.track-name:hover{
+    cursor: pointer;
+    color: #66cfec;
 }

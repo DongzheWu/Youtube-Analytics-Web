@@ -1,4 +1,6 @@
-const topicControls = require('../controls/topicControls')
+"use strict";
+
+const topicControls = require('../controls/topicControls');
 
 module.exports = app => {
     
@@ -13,7 +15,7 @@ module.exports = app => {
         if(!saveTopics){
             res.send();
         }
-        res.send(saveTopics.topicList);
+        res.status(200).json(saveTopics.topicList);
     });
 
     //Post a new topic for trend.

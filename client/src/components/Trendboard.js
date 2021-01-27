@@ -3,14 +3,9 @@ import { Container } from 'react-bootstrap';
 import AddTrend from './AddTrend';
 import TrendList from './TrendList';
 import TrendChart from './TrendChart';
+
 class Trendboard extends React.Component{
-
-
-
-
-
   render(){
-
     return (
       <main className="dash-container">
           < Container>
@@ -18,15 +13,9 @@ class Trendboard extends React.Component{
             <TrendList />
             <TrendChart />
           </Container>
-
       </main>
-
-    
     );
-
-  
   }
 }
-
 
 export default Trendboard;

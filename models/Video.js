@@ -1,6 +1,8 @@
+"use strict";
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+//VideoSchema stores the videos data to track.
 const VideoSchema = new Schema({
     googleId: String,
     keyword: String,
@@ -13,5 +15,4 @@ const VideoSchema = new Schema({
     values: [Number],
     redates: [String],
 });
-// mongoose.model('tracks', TrackSchema);
 mongoose.model('videos', VideoSchema);

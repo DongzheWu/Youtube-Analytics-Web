@@ -1,10 +1,10 @@
 import { GET_GTREND } from '../actions/types';
 
+/** Set state to the trend data from actions.*/
 export default function(state = {}, action) {
-    switch (action.type) {
-      case GET_GTREND:
-        return action.payload || false;
-      default:
-        return state;
-    }
+  if(action.type === GET_GTREND){
+    return action.payload || false;
+  }else{
+    return state;
   }
+}

@@ -37,9 +37,11 @@ app.use(cors());
 require('./routes/authRoute')(app);
 require('./routes/searchRoute')(app);
 require('./routes/topicRoutes')(app);
-require('./routes/topRoute')(app);
+require('./routes/mapRoute')(app);
 require('./routes/trackRoute')(app);
 require('./routes/trendRoute')(app);
+require('./routes/videoRoute')(app);
+require('./routes/newViewRoute')(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
