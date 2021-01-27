@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class TrendChart extends Component{
   constructor(props){
     super(props);
+    //Set default setting for label, value and color.
     this.state = {
       chartData: {
         labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
@@ -39,7 +40,6 @@ class TrendChart extends Component{
         'rgba(250,248,122,1)',
         'rgba(250,84,55,1)',
         'rgba(242,64,245,1)'
-
       ],
       options:{
         legend: {
@@ -72,61 +72,53 @@ class TrendChart extends Component{
         }
       }
     }
-
-
-
-}
-setGradientColor = (canvas, color) => {
-  const ctx = canvas.getContext('2d');
-  const gradient = ctx.createLinearGradient(0, 0, 500, 400);
-  gradient.addColorStop(0, "rgba(75,192,192,0.8)");
-  gradient.addColorStop(1, "rgba(75,192,192,0)");
-  return gradient;
-}
-
-getChartData = canvas =>{
-  const data = this.state.chartData;
-
-  if(this.props.gtrendsData.items){
-    var trendData = {
-        labels: this.props.gtrendsData.date,
-        datasets: []
-    };
-    for(var i = 0; i < this.props.gtrendsData.items.length; i++){
-
-        trendData.datasets.push({
-            label: this.props.gtrendsData.items[i],
-            data: this.props.gtrendsData.values[i],
-            borderColor : this.state.colors[i],
-            borderCapStyle: 'round',
-            fill: true,
-        });
-    }
-    return trendData;
-  }else{
-    data.datasets.forEach((set, i) => {
-      set.backgroundColor = this.setGradientColor(canvas,this.state.colors[i]);
-      });
   }
 
-  
-  return data;
+  setGradientColor = (canvas, color) => {
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, 500, 400);
+    gradient.addColorStop(0, "rgba(75,192,192,0.8)");
+    gradient.addColorStop(1, "rgba(75,192,192,0)");
+    return gradient;
+  }
+ 
+  /** Set data values */
+  getChartData = canvas =>{
+    const data = this.state.chartData;
 
-}
+    if(this.props.gtrendsData.items){
+      var trendData = {
+          labels: this.props.gtrendsData.date,
+          datasets: []
+      };
+      //Iterate trend data and set its line style.
+      for(var i = 0; i < this.props.gtrendsData.items.length; i++){
 
+          trendData.datasets.push({
+              label: this.props.gtrendsData.items[i],
+              data: this.props.gtrendsData.values[i],
+              borderColor : this.state.colors[i],
+              borderCapStyle: 'round',
+              fill: true,
+          });
+      }
+      return trendData;
+    }else{
+      data.datasets.forEach((set, i) => {
+        set.backgroundColor = this.setGradientColor(canvas,this.state.colors[i]);
+        });
+    }
+    return data;
+  }
 
   render(){
-
-
     return (
       <div style={{position: "relative", width: 1000, height: 600}}>
         <Line className="chartjs-render-monitor" data={this.getChartData} options={this.state.options}/>
-      </div>
-      
+      </div> 
     );
   }
 }
-
 
 const mapStateToProps = (state) =>{
     return {gtrendsData: state.gtrendsData};

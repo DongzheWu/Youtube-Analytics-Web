@@ -2,93 +2,81 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button} from 'react-bootstrap';
 import { deleteTrend, getGTrend, getTopics } from '../actions';
-import '../assets/css/TrendItem.css';
+import '../assets/css/trendItem.css';
 import {DropdownButton, Dropdown} from 'react-bootstrap';
 
 
 class TrendList extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-          trendArr: [],
-          length: "1 year",
-          country: "Global"
-        };
+  constructor(props){
+    super(props);
+    this.state = {
+      trendArr: [],
+      length: "1 year",
+      country: "Global"
+    };
+  }
+
+  //Get saved trend topics from server side.
+  componentDidMount(){
+    this.props.getTopics();
+  }
+
+  toggleCheckbox = e => {
+    if (e.target.checked){
+      this.setState({
+        trendArr: [...this.state.trendArr, e.target.value]
+      });
+    } else {
+      this.setState({
+        trendArr: this.state.trendArr.filter(element => element !== e.target.value)
+      });
+    }}
+
+  //Submit selected topics and call server to get trend data of selected topics.
+  submitTrend = () => {
+    if(this.state.trendArr.length > 0 && this.state.trendArr.length <= 5){
+      this.props.getGTrend(this.state.trendArr, this.state.length, this.state.country);
     }
-    componentDidMount(){
-      this.props.getTopics();
-    }
-
-    toggleCheckbox = e => {
-        if (e.target.checked){
-            this.setState({
-                trendArr: [...this.state.trendArr, e.target.value]
-            });
-      
-        } else {
-          this.setState({
-                trendArr: this.state.trendArr.filter(element => element !== e.target.value)
-          });
-      
-        }
-      }
-
-      submitTrend = () => {
-        if(this.state.trendArr.length > 0 && this.state.trendArr.length <= 5){
-            this.props.getGTrend(this.state.trendArr, this.state.length, this.state.country);
-        }
-      }
-
+  }
 
   renderList = (trends) =>{
-
     return Object.keys(trends).map(index => {
- 
-        return (
-            <div className="trend-item" key={trends[index].topicId}>
-            <label>
-              <input
+      return (
+        <div className="trend-item" key={trends[index].topicId}>
+          <label>
+            <input
               className="check-box"
               value={trends[index].topic}
-                type="checkbox"
-
-                onChange={this.toggleCheckbox}
-              />
-            </label>
-            <span>{trends[index].topic}</span>
-            
-
-            <i className="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index].topicId)}}></i>
-           </div>
+              type="checkbox"
+              onChange={this.toggleCheckbox}
+            />
+          </label>
+          <span>{trends[index].topic}</span>
+          <i className="fas fa-times" onClick={() =>{this.props.deleteTrend(trends[index].topicId)}}></i>
+        </div>
         );
-      });
-    
+    });
   }
+
+  //Set time range of topic trend.
   dropdownClick = (value) => {
-    
     this.setState({
       length: value
-  });
-
+    });
   }
+
+  //Set country of topic trend.
   dropdownCountry = (value) => {
     this.setState({
       country: value
     });
   }
 
-
   render(){
-
     if(this.props.trends){
-
-
         return (
           <div style={{ marginBottom: "30px"}}>
-           
-              
             {this.renderList(this.props.trends)}
-        
             <DropdownButton className="btn-display" id="dropdown-item-button" title={this.state.length}>
             <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>7 DAYS</Dropdown.Item>
               <Dropdown.Item onClick = {(e) => this.dropdownClick(e.target.textContent)}>1 YEAR</Dropdown.Item>
@@ -106,19 +94,13 @@ class TrendList extends React.Component{
             <div>
               <p>Add keywords you want to search, select at most five keywords, then click Submit to get search trend lines</p>
             </div>
-        
-
           </div>
         );
     }else{
         return <div></div>;
-
     }
-
-  
   }
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -126,8 +108,6 @@ function mapStateToProps(state) {
     auth: state.auth
   };
 }
-
-
 
 export default connect(mapStateToProps, {deleteTrend: deleteTrend, 
   getGTrend: getGTrend, getTopics: getTopics})(TrendList);

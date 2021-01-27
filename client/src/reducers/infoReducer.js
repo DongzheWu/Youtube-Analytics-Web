@@ -1,7 +1,7 @@
 import { SHOW_INFO } from '../actions/types';
 import { TIME_SORT } from '../actions/types';
 
-
+/** Set state to video info from actions. */
 export default function(state = [], action) {
   switch (action.type) {
     case SHOW_INFO:

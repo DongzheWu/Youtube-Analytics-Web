@@ -1,5 +1,6 @@
 import { ADD_TREND, DELETE_TREND, GET_TOPICS}  from '../actions/types';
 
+/** Set trend keywords list depending on get, add and delete operation from actions.*/
 export default function(state = [], action) {
   switch (action.type) {
     case GET_TOPICS:
