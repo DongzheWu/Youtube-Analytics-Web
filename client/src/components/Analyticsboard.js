@@ -101,9 +101,10 @@ class Analyticsboard extends React.Component{
       for(let i = 0; i < videos.length; i++){
         sumView += parseInt(videos[i].viewCount, 10)
         maxView = Math.max(maxView, parseInt(videos[i].viewCount, 10));
-        maxComment = Math.max(maxComment, parseInt(videos[i].commentCount, 10));
+      
         //Some videos turn off comments, commentCount should be undefined.
         if(videos[i].commentCount){
+          maxComment = Math.max(maxComment, parseInt(videos[i].commentCount, 10));
           sumComment += parseInt(videos[i].commentCount, 10);
         }
         sumDuration += this.durationToSeconds(videos[i].duration);
